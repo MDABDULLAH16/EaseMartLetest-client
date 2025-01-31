@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import Link from "next/link";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface UserInfo {
@@ -62,7 +63,7 @@ const UserProfile = () => {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { name, email, phone = "Not provided", role, address = "Not provided", avatar } = userInfo;
+  const { name,_id, email, phone = "Not provided", role, address = "Not provided", avatar } = userInfo;
 
   const copyToClipboard = (text: string, field: string) => {
     if (typeof window !== "undefined") {
@@ -151,9 +152,9 @@ const UserProfile = () => {
           </div>
           {/* Edit Profile Button */}
           <div className="mt-8 text-center">
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            <Link href={`/dashboard/userInfo/${_id}`}  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
               Edit Profile
-            </button>
+            </Link>
           </div>
         </div>
       </div>

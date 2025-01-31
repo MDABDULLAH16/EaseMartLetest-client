@@ -9,7 +9,7 @@ const Banner = () => {
       <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 h-screen text-white overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="https://img.freepik.com/premium-photo/smiling-millennial-arab-husband-show-credit-card-wife-use-laptop-sit-floor-with-many-bags-with_116547-79071.jpg?w=900"
+            src="https://as1.ftcdn.net/jpg/05/47/69/58/1000_F_547695839_IujiLmCh7AgbYd2Eyk5hgQcCYftTqQxV.webp"
             alt="Background Image"
             fill
             priority

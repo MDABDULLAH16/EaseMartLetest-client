@@ -2,12 +2,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../assets/EaseMart.png";
-import { signOut } from "next-auth/react";
+
 import { clearUserInfo, selectUserInfo } from "@/redux/features/userDetailsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import Cookies from "js-cookie";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false); // Track client-side rendering
@@ -22,6 +22,12 @@ const Navbar = () => {
   const handleLogOut = async () => {
     // await signOut({ redirect: false, callbackUrl: "/login" });
     dispatch(clearUserInfo());
+     // Clear the auth token cookie
+     Cookies.remove("authToken");
+
+     // Clear user info from localStorage
+     localStorage.removeItem("userInfo");
+ 
     router.push("/login");
     router.refresh();
   };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server'
 
 import ProductDetailsCard from "@/components/ui/ProductDetailsCard";
@@ -5,13 +6,13 @@ import ProductDetailsCard from "@/components/ui/ProductDetailsCard";
 // import ProductDetailsCard from "@/components/ui/ProductDetailsCard";
 
 // Define the type for params
-interface TProductId {
-  params: {
-    productId: string;
-  };
-}
+// interface TProductId {
+//   params: {
+//     productId: string;
+//   };
+// }
 
-const ProductDetailsPage = async ({ params }: TProductId) => {
+const ProductDetailsPage = async ({ params }:any) => {
   // Log the params object
   console.log(params);
 
