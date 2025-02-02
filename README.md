@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+## Admin: admin@programming-hero.com passs: ph-password
+
 First, run the development server:
 
 ```bash
