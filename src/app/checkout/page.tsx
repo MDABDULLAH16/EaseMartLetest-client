@@ -4,11 +4,16 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useState } from "react";
 import { selectUserInfo } from "@/redux/features/userDetailsSlice";
+import CreateOrder from "@/utils/actions/CreateOrder";
+
+
 
 const CheckoutPage = () => {
   const currentUser = useSelector(selectUserInfo); // Assuming user data is in Redux
   const allCartItems = useSelector((state: RootState) => state.cart.items);
   const cartItems = allCartItems.filter(item => item.userId === currentUser?._id)
+  console.log('st item',cartItems);
+  
  
   
 
@@ -31,25 +36,35 @@ const CheckoutPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handlePayment = () => {
-    const orderData = {
-      user: {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        address: formData.address,
-      },
-      products: cartItems.map((item) => ({
-        product: item._id,
-        name: item.name,
-        quantity: item.stockQuantity,
-        price: item.price,
-      })),
-      totalPrice: parseFloat(totalPrice),
-      paymentMethod: formData.paymentMethod,
-    };
-
-    console.log("Proceeding to Payment with Order Data:", orderData);
+  const handlePayment = async () => {
+    try {
+      const orderData = {
+        user: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+        },
+        products: cartItems.map((item) => (console.log('items',item._id),
+        {                 
+          product: item._id,
+          quantity: item.stockQuantity,
+        })),
+        // totalPrice: parseFloat(totalPrice),
+      
+      };
+  
+      // console.log("Proceeding to Payment with Order Data:", orderData);
+  
+      const response = await CreateOrder(orderData);
+      if (response.success) {
+        window.location.href = response.data.payment_url;
+     }
+     
+    } catch (error) {
+      console.error("Error placing order:", error);
+      alert("Failed to place the order. Please try again.");
+    }
   };
 
   return (
@@ -89,14 +104,14 @@ const CheckoutPage = () => {
               className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500"
             />
             <input
-              type="text"
-              name="email"
+              type="number"
+              name="phone"
               placeholder="Phone Number"
-              value={formData.email}              
+              value={formData.phone}              
               onChange={handleInputChange}
               className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500"
             />
-            <select
+            {/* <select
               name="paymentMethod"
               value={formData.paymentMethod}
               onChange={handleInputChange}
@@ -106,7 +121,7 @@ const CheckoutPage = () => {
               <option value="credit_card">Credit Card</option>
               <option value="paypal">PayPal</option>
               <option value="bank_transfer">Bank Transfer</option>
-            </select>
+            </select> */}
           </form>
         </div>
 
