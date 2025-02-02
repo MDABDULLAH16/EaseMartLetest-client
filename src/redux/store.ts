@@ -1,62 +1,31 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import authReducer from "./features/authSlice";
-import cartReducer from "./features/cartSlice";
-import userDetailsReducer from "./features/userDetailsSlice";
-import { baseApi } from "./api/baseApi";
-
-import {
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import createWebStorage from "redux-persist/lib/storage/createWebStorage";
-
-const createNoopStorage = () => ({
-  getItem() {
-    return Promise.resolve(null);
-  },
-  setItem() {
-    return Promise.resolve();
-  },
-  removeItem() {
-    return Promise.resolve();
-  },
-});
-
-const storageFallback = typeof window !== "undefined" ? storage : createNoopStorage(); // ✅ Fallback for SSR
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // Defaults to localStorage
+import cartReducer from "@/redux/features/cartSlice";
+import userReducer from "@/redux/features/userDetailsSlice";
 
 const persistConfig = {
-  key: "auth",
-  version: 1,
-  storage: storageFallback, // ✅ Ensures storage is never undefined
+  key: "root", // Key for the persisted state
+  storage, // Use localStorage
 };
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+
+const persistedCartReducer = persistReducer(persistConfig, cartReducer);
 
 export const store = configureStore({
   reducer: {
-    auth: persistedAuthReducer,
-    cart: cartReducer,
-    userDetails: userDetailsReducer,
-    [baseApi.reducerPath]: baseApi.reducer,
+    cart: persistedCartReducer,
+    userDetails: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }).concat(baseApi.middleware),
+      serializableCheck: false, // Disable serialization checks for redux-persist
+    }),
 });
 
-// Infer types for better TypeScript support
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-
-// Export persistor for usage in `_app.tsx`
 export const persistor = persistStore(store);
+
+// Define RootState based on the store's state
+export type RootState = ReturnType<typeof store.getState>;
+
+// Define AppDispatch for dispatching actions
+export type AppDispatch = typeof store.dispatch;

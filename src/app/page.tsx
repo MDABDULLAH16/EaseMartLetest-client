@@ -2,6 +2,7 @@ import Banner from "@/components/Banner";
 import ProductsPage from "./product/page";
 import Stat from "@/components/Stat";
 import ServicesStat from "@/components/ui/ServicesStat";
+import ReviewCard from "@/components/ReviewCard";
 
 const HomePage = () => {
   return (
@@ -10,7 +11,8 @@ const HomePage = () => {
       <Banner></Banner>
       <ServicesStat/>
       <ProductsPage/>
-      <Stat/>
+      <Stat />
+      <ReviewCard/>
     </div>
   );
 };

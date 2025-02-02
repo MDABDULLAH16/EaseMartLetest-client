@@ -54,12 +54,15 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-6">
             <Link href="/" className="nav-link">Home</Link>
             <Link href="/product" className="nav-link">Products</Link>
-            <Link href="/cart" className="nav-link">Cart</Link>
+            
             <Link href="/about" className="nav-link">About Us</Link>
             {isClient && user?.role === "admin" ? (
               <Link href="/admin" className="nav-link">Admin</Link>
             ) : (
-              <Link href="/dashboard" className="nav-link">Dashboard</Link>
+                <>
+                  <Link href="/cart" className="nav-link block">Cart</Link>
+                  <Link href="/dashboard" className="nav-link">Dashboard</Link>
+              </>
             )}
           </div>
 
@@ -108,12 +111,15 @@ const Navbar = () => {
           <div className="md:hidden space-y-2 mt-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
             <Link href="/" className="nav-link block">Home</Link>
             <Link href="/product" className="nav-link block">Products</Link>
-            <Link href="/cart" className="nav-link block">Cart</Link>
+   
             <Link href="/about" className="nav-link block">About Us</Link>
             {isClient && user?.role === "admin" ? (
-              <Link href="/admin" className="nav-link block">Admin</Link>
+              <Link href="/admin" className="nav-link">Admin</Link>
             ) : (
-              <Link href="/dashboard" className="nav-link block">Dashboard</Link>
+                <>
+                  <Link href="/cart" className="nav-link block">Cart</Link>
+                  <Link href="/dashboard" className="nav-link">Dashboard</Link>
+              </>
             )}
             {isClient && user ? (
               <>

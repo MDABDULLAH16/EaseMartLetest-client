@@ -3,18 +3,24 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useState } from "react";
+import { selectUserInfo } from "@/redux/features/userDetailsSlice";
 
 const CheckoutPage = () => {
-  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const currentUser = useSelector(selectUserInfo); // Assuming user data is in Redux
+  const allCartItems = useSelector((state: RootState) => state.cart.items);
+  const cartItems = allCartItems.filter(item => item.userId === currentUser?._id)
+ 
+  
+
   const totalPrice = cartItems
     .reduce((total, item) => total + item.price * item.stockQuantity, 0)
     .toFixed(2);
 
   const [formData, setFormData] = useState({
-    name: "",
-    address: "",
-    email: "",
-    phone: "",
+    name: currentUser?.name || "",
+    address: currentUser?.address || "",
+    email: currentUser?.email || "",
+    phone: currentUser?.phone || "",
     paymentMethod: "",
   });
 
@@ -25,16 +31,25 @@ const CheckoutPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    console.log({
-      shippingDetails: formData,
-      orderSummary: cartItems.map((item) => ({
+  const handlePayment = () => {
+    const orderData = {
+      user: {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+      },
+      products: cartItems.map((item) => ({
+        product: item._id,
         name: item.name,
         quantity: item.stockQuantity,
-        price: (item.price * item.stockQuantity).toFixed(2),
+        price: item.price,
       })),
-      totalPrice,
-    });
+      totalPrice: parseFloat(totalPrice),
+      paymentMethod: formData.paymentMethod,
+    };
+
+    console.log("Proceeding to Payment with Order Data:", orderData);
   };
 
   return (
@@ -55,7 +70,7 @@ const CheckoutPage = () => {
               placeholder="Full Name"
               value={formData.name}
               onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500"
             />
             <input
               type="text"
@@ -63,7 +78,7 @@ const CheckoutPage = () => {
               placeholder="Address"
               value={formData.address}
               onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500"
             />
             <input
               type="email"
@@ -71,21 +86,21 @@ const CheckoutPage = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500"
             />
             <input
-              type="tel"
-              name="phone"
+              type="text"
+              name="email"
               placeholder="Phone Number"
-              value={formData.phone}
+              value={formData.email}              
               onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500"
             />
             <select
               name="paymentMethod"
               value={formData.paymentMethod}
               onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500"
             >
               <option value="">Select Payment Method</option>
               <option value="credit_card">Credit Card</option>
@@ -118,10 +133,10 @@ const CheckoutPage = () => {
             <span>${totalPrice}</span>
           </div>
           <button
-            onClick={handleSubmit}
+            onClick={handlePayment}
             className="w-full bg-green-500 text-white py-2 mt-6 rounded-lg hover:bg-green-600 transition"
           >
-            Submit Order
+            Proceed to Payment 💳
           </button>
         </div>
       </div>

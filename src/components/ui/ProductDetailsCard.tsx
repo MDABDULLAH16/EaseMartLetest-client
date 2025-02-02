@@ -13,11 +13,30 @@ import DeleteProductButton from "./DeleteProduct";
 const ProductDetailsCard = ({ product }: { product: TProduct }) => {
   const dispatch = useAppDispatch();
   const user = useSelector(selectUserInfo);
+  console.log(user);
+  
 
   // Handle adding product to cart
   const handleAddToCart = () => {
-    dispatch(addToCart(product)); // Dispatch the action to add product to cart
-    toast.success("Product added to cart!");
+    if (!product._id) {
+      toast.error("Product ID is missing!");
+      return;
+    }
+
+    if (product.stockQuantity && product.stockQuantity < 1) {
+      toast.error("Out of stock!");
+      return;
+    }
+
+    if (!user?._id) {
+      toast.error("Please log in to add products to your cart.");
+      return;
+    }
+
+    // Dispatch the addToCart action with the product and userId
+    dispatch(addToCart({ product, userId: user._id }));
+
+    
   };
 
   return (
@@ -36,28 +55,20 @@ const ProductDetailsCard = ({ product }: { product: TProduct }) => {
             className="rounded-lg shadow-lg max-h-96 w-full object-cover"
           />
         </div>
-
         {/* Product Details */}
         <div className="flex flex-col justify-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {product.name}
-          </h1>
-          <p className="text-xl font-semibold text-gray-700 mb-4">
-            $ {product.price}
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
+          <p className="text-xl font-semibold text-gray-700 mb-4">${product.price}</p>
           <p className="text-sm text-gray-600 mb-2">
-            Available Stock:{" "}
-            <span className="font-medium">{product.stockQuantity}</span>
+            Available Stock: <span className="font-medium">{product.stockQuantity}</span>
           </p>
           <p className="text-sm text-gray-600 mb-2">
             Category: <span className="font-medium">{product.category}</span>
           </p>
           <p className="text-gray-700 text-md mt-4">{product.description}</p>
-
           {/* Admin Actions or Add to Cart Button */}
           {user?.role === "admin" ? (
             <div className="flex flex-col text-center">
-              {/* Ensure product._id is defined before rendering DeleteProductButton */}
               {product._id && (
                 <DeleteProductButton key={product._id} productId={product._id} />
               )}

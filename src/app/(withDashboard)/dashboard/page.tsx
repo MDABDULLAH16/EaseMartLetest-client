@@ -1,7 +1,8 @@
 import UserProfile from "../../../components/shared/UserProfile";
 
 
-const DashboardPage =  () => {
+const DashboardPage = () => {
+  
   return (
     <div>
       <UserProfile />

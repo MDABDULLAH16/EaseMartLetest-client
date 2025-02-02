@@ -1,8 +1,9 @@
 import AdminSidebar from "@/components/shared/AdminSidebar";
 import type { Metadata } from "next";
 
+
 export const metadata: Metadata = {
-  title: "EaseMart User Dashboard",
+  title: "EaseMart Admin Dashboard",
   description: "Manage apps here",
 };
 

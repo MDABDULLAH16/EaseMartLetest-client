@@ -23,7 +23,7 @@ const MyInfoUpdateForm = ({ user }: { user: TUser }) => {
   } = useForm<TUser>({
     defaultValues: {
       name: user.name || "",
-      email: user.email || "",
+      // email: user.email || "",
       phone: user.phone,
      
       address: user.address || "",
@@ -77,8 +77,8 @@ const MyInfoUpdateForm = ({ user }: { user: TUser }) => {
           )}
         </div>
 
-        {/* Email Field */}
-        <div className="mb-4">
+        {/* Email Field  not allow to change*/}
+        {/* <div className="mb-4">
           <label
             htmlFor="email"
             className="block text-sm font-medium text-gray-700 mb-2"
@@ -97,7 +97,7 @@ const MyInfoUpdateForm = ({ user }: { user: TUser }) => {
           {errors.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
-        </div>
+        </div> */}
 
         {/* Phone Field */}
         <div className="mb-4">

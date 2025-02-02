@@ -1,9 +1,12 @@
+
 import Link from "next/link";
 import { IoCartOutline } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa6";
 import { MdCategory } from "react-icons/md";
 
+
 const AdminSidebar = () => {
+
   return (
     <div>
       <ul className="menu bg-base-200 min-h-screen rounded-box">

@@ -1,6 +1,6 @@
 // authSlice.ts
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+// import { RootState } from "../store";
 
 interface User {
   email: string;
@@ -40,5 +40,5 @@ export const { setUser, clearUser } = authSlice.actions;
 export default authSlice.reducer;
 
 // Selectors for accessing parts of the state
-export const selectCurrentUser = (state: RootState) => state.auth.user;
-export const selectCurrentToken = (state: RootState) => state.auth.token;
+// export const selectCurrentUser = (state: RootState) => state.auth.user;
+// export const selectCurrentToken = (state: RootState) => state.auth.token;
