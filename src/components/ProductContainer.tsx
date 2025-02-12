@@ -4,6 +4,7 @@ import { TProduct } from "@/types/TProducts";
 import { TCategory } from "@/types/TCategory";
 import ProductCard from "./ui/ProductCard";
 import TitleSection from "./shared/TitleWithHelmet";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const ProductContainer = ({
   products,
@@ -21,6 +22,20 @@ const ProductContainer = ({
   // Map category IDs to names for filtering
   const categoryMap = new Map(categories.map((cat) => [cat._id, cat.name]));
   const uniqueCategories = ["All", ...categories.map((cat) => cat.name)];
+
+  const searchParams = useSearchParams();
+  const pathName = usePathname();
+  const isHomePage = pathName === "/";
+  const isProductManage = pathName === "/admin/productManagement";
+  // Extract category from query parameters
+  useEffect(() => {
+    const categoryFromQuery = searchParams.get("category");
+    if (categoryFromQuery) {
+      setSelectedCategory(decodeURIComponent(categoryFromQuery));
+    } else {
+      setSelectedCategory("All");
+    }
+  }, [searchParams]);
 
   // Filter products based on search and category
   const filteredProducts = products.filter((product) => {
@@ -64,7 +79,6 @@ const ProductContainer = ({
 
   // Ensure client-side rendering
   const [isClient, setIsClient] = useState(false);
-
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -74,55 +88,58 @@ const ProductContainer = ({
   }
 
   return (
-    <div className=" space-y-6">
-      <TitleSection
-        header={"Our Awesome"}
-        optional={"Product"}
-        title={"Product"}
-      />
-      {/* Filters Section */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Search Input */}
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full md:w-1/3 p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+    <div className="space-y-6 m-6">
+      {!isProductManage && (
+        <TitleSection
+          header={"Our Awesome"}
+          optional={"Product"}
+          title={"Product"}
         />
-        {/* Categories Dropdown */}
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="w-full md:w-1/4 p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
-        >
-          {uniqueCategories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-        {/* Sort By Dropdown */}
-        <select
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-          className="w-full md:w-1/4 p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
-        >
-          <option value="default">Default Price</option>
-          <option value="priceHighToLow">Price High to Low</option>
-          <option value="priceLowToHigh">Price Low to High</option>
-        </select>
-        {/* Clear Filters Button */}
-        <button
-          onClick={handleClearFilters}
-          className="bg-red-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-red-400 transition duration-200"
-        >
-          Clear Filters
-        </button>
-      </div>
+      )}
+      {/* Filters Section */}
+      {!isHomePage && (
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          {/* Search Input */}
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full md:w-1/3 p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+          {/* Categories Dropdown */}
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="w-full md:w-1/4 p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+          >
+            {uniqueCategories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+          {/* Sort By Dropdown */}
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="w-full md:w-1/4 p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+          >
+            <option value="default">Default Price</option>
+            <option value="priceHighToLow">Price High to Low</option>
+            <option value="priceLowToHigh">Price Low to High</option>
+          </select>
+          {/* Clear Filters Button */}
+          <button
+            onClick={handleClearFilters}
+            className="bg-red-500 text-white px-6 py-2 rounded-md shadow-sm hover:bg-red-400 transition duration-200"
+          >
+            Clear
+          </button>
+        </div>
+      )}
       {/* Products Grid */}
-
-      <div className="grid  mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {paginatedProducts.length > 0 ? (
           paginatedProducts.map((product) => (
             <ProductCard key={product._id} product={product} />

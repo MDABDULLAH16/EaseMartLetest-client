@@ -1,6 +1,5 @@
 import ProductContainer from "@/components/ProductContainer";
 
-
 const ProductsPage = async () => {
   try {
     // Fetch products

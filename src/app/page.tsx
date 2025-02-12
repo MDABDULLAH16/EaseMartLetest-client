@@ -3,16 +3,18 @@ import ProductsPage from "./product/page";
 import Stat from "@/components/Stat";
 import ServicesStat from "@/components/ui/ServicesStat";
 import ReviewCard from "@/components/ReviewCard";
+import CategoryPage from "./categories/page";
 
 const HomePage = () => {
   return (
     <div>
       {/* <h1 className="text-4xl text-center mt-10">Welcome To Home Page</h1> */}
       <Banner></Banner>
-      <ServicesStat />
+      <CategoryPage />
       <ProductsPage />
-      <Stat />
+      <ServicesStat />
       <ReviewCard />
+      <Stat />
     </div>
   );
 };

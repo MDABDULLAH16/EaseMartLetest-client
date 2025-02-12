@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const Stat = () => {
   return (
-    <div className="flex flex-col items-center justify-center text-center bg-gray-100 py-10 px-4">
+    <div className="flex flex-col items-center mt-12 mb-0 justify-center text-center bg-gray-100 py-8 px-4">
       {/* Stats Container */}
       <div className="stats shadow-lg rounded-lg overflow-hidden w-full max-w-6xl bg-white">
         {/* Stat Item 1 */}
@@ -22,9 +22,13 @@ const Stat = () => {
               ></path>
             </svg>
           </div>
-          <div className="stat-title text-gray-600 text-sm font-medium">Total Orders</div>
+          <div className="stat-title text-gray-600 text-sm font-medium">
+            Total Orders
+          </div>
           <div className="stat-value text-3xl font-bold text-gray-900">31K</div>
-          <div className="stat-desc text-gray-500 text-xs">Jan 1st - Feb 1st</div>
+          <div className="stat-desc text-gray-500 text-xs">
+            Jan 1st - Feb 1st
+          </div>
         </div>
 
         {/* Stat Item 2 */}
@@ -44,8 +48,12 @@ const Stat = () => {
               ></path>
             </svg>
           </div>
-          <div className="stat-title text-gray-600 text-sm font-medium">New Customers</div>
-          <div className="stat-value text-3xl font-bold text-gray-900">4,200</div>
+          <div className="stat-title text-gray-600 text-sm font-medium">
+            New Customers
+          </div>
+          <div className="stat-value text-3xl font-bold text-gray-900">
+            4,200
+          </div>
           <div className="stat-desc text-green-500 text-xs">↗︎ 400 (22%)</div>
         </div>
 
@@ -66,8 +74,12 @@ const Stat = () => {
               ></path>
             </svg>
           </div>
-          <div className="stat-title text-gray-600 text-sm font-medium">Abandoned Carts</div>
-          <div className="stat-value text-3xl font-bold text-gray-900">1,200</div>
+          <div className="stat-title text-gray-600 text-sm font-medium">
+            Abandoned Carts
+          </div>
+          <div className="stat-value text-3xl font-bold text-gray-900">
+            1,200
+          </div>
           <div className="stat-desc text-red-500 text-xs">↘︎ 90 (14%)</div>
         </div>
       </div>
