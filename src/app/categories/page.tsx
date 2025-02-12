@@ -1,11 +1,7 @@
-import { TCategory } from "@/types/TCategory";
-import React from "react";
-import CategoryCardForUser from "@/components/ui/CategoryCardForUser";
-import TitleSection from "@/components/shared/TitleWithHelmet";
+import CategoryPage from "@/components/CategoriesPage";
 
-const CategoryPage = async () => {
+const CategoryPageWrapper = async () => {
   try {
-    // Fetch categories from backend
     const url = process.env.BACKEND_URL;
     const allCategories = await fetch(`${url}/categories`, {
       cache: "no-cache",
@@ -14,32 +10,10 @@ const CategoryPage = async () => {
       },
     });
 
-    // Parse response
     const response = await allCategories.json();
     const categories = Array.isArray(response) ? response : response.data || [];
 
-    return (
-      <div className="p-6 max-w-7xl  mx-auto">
-        <div className="flex justify-center">
-          <TitleSection optional={"Categories"} />
-        </div>
-        <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-          {/* <AddCateButton /> */}
-        </div>
-
-        {categories.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
-            {categories.map((category: TCategory) => (
-              <CategoryCardForUser key={category._id} category={category} />
-            ))}
-          </div>
-        ) : (
-          <p className="text-center text-gray-500 dark:text-gray-400">
-            No categories available.
-          </p>
-        )}
-      </div>
-    );
+    return <CategoryPage categories={categories} />;
   } catch (error) {
     console.error("Failed to fetch categories:", error);
     return (
@@ -52,4 +26,4 @@ const CategoryPage = async () => {
   }
 };
 
-export default CategoryPage;
+export default CategoryPageWrapper;
