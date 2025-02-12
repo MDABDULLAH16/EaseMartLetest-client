@@ -5,11 +5,14 @@ import { RootState } from "@/redux/store";
 import { useState } from "react";
 import { selectUserInfo } from "@/redux/features/userDetailsSlice";
 import CreateOrder from "@/utils/actions/CreateOrder";
+import { useAppDispatch } from "@/redux/hooks";
+import { clearCartForUser } from "@/redux/features/cartSlice";
 
 
 
 const CheckoutPage = () => {
   const currentUser = useSelector(selectUserInfo); // Assuming user data is in Redux
+   const dispatch = useAppDispatch();
   const allCartItems = useSelector((state: RootState) => state.cart.items);
   const cartItems = allCartItems.filter(item => item.userId === currentUser?._id)
   console.log('st item',cartItems);
@@ -25,7 +28,7 @@ const CheckoutPage = () => {
     name: currentUser?.name || "",
     address: currentUser?.address || "",
     email: currentUser?.email || "",
-    phone: currentUser?.phone || "",
+    phone: currentUser?.phone || '',
     paymentMethod: "",
   });
 
@@ -45,7 +48,7 @@ const CheckoutPage = () => {
           phone: formData.phone,
           address: formData.address,
         },
-        products: cartItems.map((item) => (console.log('items',item._id),
+        products: cartItems.map((item) => (
         {                 
           product: item._id,
           quantity: item.stockQuantity,
@@ -59,6 +62,7 @@ const CheckoutPage = () => {
       const response = await CreateOrder(orderData);
       if (response.success) {
         window.location.href = response.data.payment_url;
+        dispatch(clearCartForUser(currentUser?._id as string))
      }
      
     } catch (error) {
@@ -107,7 +111,7 @@ const CheckoutPage = () => {
               type="number"
               name="phone"
               placeholder="Phone Number"
-              value={formData.phone}              
+              value={formData.phone as string}              
               onChange={handleInputChange}
               className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500"
             />

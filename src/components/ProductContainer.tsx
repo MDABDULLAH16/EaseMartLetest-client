@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { TProduct } from "@/types/TProducts";
 import { TCategory } from "@/types/TCategory";
 import ProductCard from "./ui/ProductCard";
+import TitleSection from "./shared/TitleWithHelmet";
 
 const ProductContainer = ({
   products,
@@ -15,7 +16,7 @@ const ProductContainer = ({
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("default"); // Sorting state
-  const itemsPerPage = 6; // Number of products per page
+  const itemsPerPage = 8; // Number of products per page
 
   // Map category IDs to names for filtering
   const categoryMap = new Map(categories.map((cat) => [cat._id, cat.name]));
@@ -73,7 +74,12 @@ const ProductContainer = ({
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className=" space-y-6">
+      <TitleSection
+        header={"Our Awesome"}
+        optional={"Product"}
+        title={"Product"}
+      />
       {/* Filters Section */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Search Input */}
@@ -115,7 +121,8 @@ const ProductContainer = ({
         </button>
       </div>
       {/* Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div className="grid  mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {paginatedProducts.length > 0 ? (
           paginatedProducts.map((product) => (
             <ProductCard key={product._id} product={product} />

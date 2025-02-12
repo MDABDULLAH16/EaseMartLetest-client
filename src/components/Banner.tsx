@@ -1,19 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-
-
+// import banner1 from "../assets/banner/banner1.jpg";
 
 const Banner = () => {
   return (
     <div>
-      <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 h-screen text-white overflow-hidden">
+      <div className="relative bg-gradient-to-r mt-4 from-purple-600 to-blue-600 h-screen text-white overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="https://as1.ftcdn.net/jpg/05/47/69/58/1000_F_547695839_IujiLmCh7AgbYd2Eyk5hgQcCYftTqQxV.webp"
-            alt="Background Image"
+            src="https://img.freepik.com/free-photo/front-view-cyber-monday-shopping-cart-with-bags_23-2148657637.jpg?uid=R62967149&ga=GA1.1.159305073.1738334521"
             fill
             priority
-            className="object-cover object-center"
+            className=""
+            alt="Banner"
           />
           <div className="absolute inset-0 bg-black opacity-20"></div>
         </div>
