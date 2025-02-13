@@ -18,7 +18,7 @@ const DeleteButton = ({ categoryId }: { categoryId: string }) => {
       toast.success("Category deleted successfully!");
       // Redirect or update UI after deletion
       router.push("/admin/categoryManagement");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.message || "Failed to delete category.");
     } finally {

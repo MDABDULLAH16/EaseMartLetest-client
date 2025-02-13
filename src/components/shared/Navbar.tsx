@@ -3,16 +3,21 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../../assets/EaseMart.png";
 
-import { clearUserInfo, selectUserInfo } from "@/redux/features/userDetailsSlice";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  clearUserInfo,
+  selectUserInfo,
+} from "@/redux/features/userDetailsSlice";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useAppDispatch } from "@/redux/hooks";
+import { RootState } from "@/redux/store";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false); // Track client-side rendering
   const user = useSelector(selectUserInfo);
-  const dispatch = useDispatch();
+
   const router = useRouter();
 
   useEffect(() => {
@@ -22,15 +27,20 @@ const Navbar = () => {
   const handleLogOut = async () => {
     // await signOut({ redirect: false, callbackUrl: "/login" });
     dispatch(clearUserInfo());
-     // Clear the auth token cookie
-     Cookies.remove("authToken");
+    // Clear the auth token cookie
+    Cookies.remove("authToken");
 
-     // Clear user info from localStorage
-     localStorage.removeItem("userInfo");
- 
+    // Clear user info from localStorage
+    localStorage.removeItem("userInfo");
+
     router.push("/login");
     router.refresh();
   };
+
+  const dispatch = useAppDispatch();
+  const allCartItems = useSelector((state: RootState) => state.cart.items);
+  const cartItems = allCartItems.filter((item) => item.userId === user?._id);
+  const item = cartItems.length;
 
   return (
     <nav className="bg-white w-[90%]: shadow-md dark:bg-gray-900">
@@ -52,16 +62,34 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6">
-            <Link href="/" className="nav-link">Home</Link>
-            <Link href="/product" className="nav-link">Products</Link>
-            
-            <Link href="/about" className="nav-link">About Us</Link>
+            <Link href="/" className="nav-link">
+              Home
+            </Link>
+            <Link href="/product" className="nav-link">
+              Products
+            </Link>
+
+            <Link href="/about" className="nav-link">
+              About Us
+            </Link>
             {isClient && user?.role === "admin" ? (
-              <Link href="/admin" className="nav-link">Admin</Link>
+              <Link href="/admin" className="nav-link">
+                Admin
+              </Link>
             ) : (
-                <>
-                  <Link href="/cart" className="nav-link block">Cart</Link>
-                  <Link href="/dashboard" className="nav-link">Dashboard</Link>
+              <>
+                <Link href="/cart" className="nav-link block">
+                  <div className="relative  rounded-lg">
+                    <span className="font-bold ml-2">Cart</span>
+                    <div className="px-1 py-0.5 bg-teal-500 min-w-5 rounded-full text-center text-white text-xs absolute -top-4 -end-1 translate-x-1/4 text-nowrap">
+                      <div className="absolute top-0 start-0 rounded-full -z-10 animate-ping bg-teal-200 w-full h-full"></div>
+                      {item}
+                    </div>
+                  </div>
+                </Link>
+                <Link href="/dashboard" className="nav-link">
+                  Dashboard
+                </Link>
               </>
             )}
           </div>
@@ -83,7 +111,9 @@ const Navbar = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h8m-8 6h16"}
+                  d={
+                    menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h8m-8 6h16"
+                  }
                 />
               </svg>
             </button>
@@ -93,7 +123,9 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             {isClient && user ? (
               <>
-                <span className="text-gray-800 dark:text-white">{user?.name}</span>
+                <span className="text-gray-800 dark:text-white">
+                  {user?.name}
+                </span>
                 <button onClick={handleLogOut} className="btn-red">
                   Logout
                 </button>
@@ -109,21 +141,35 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {menuOpen && (
           <div className="md:hidden space-y-2 mt-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
-            <Link href="/" className="nav-link block">Home</Link>
-            <Link href="/product" className="nav-link block">Products</Link>
-   
-            <Link href="/about" className="nav-link block">About Us</Link>
+            <Link href="/" className="nav-link block">
+              Home
+            </Link>
+            <Link href="/product" className="nav-link block">
+              Products
+            </Link>
+
+            <Link href="/about" className="nav-link block">
+              About Us
+            </Link>
             {isClient && user?.role === "admin" ? (
-              <Link href="/admin" className="nav-link">Admin</Link>
+              <Link href="/admin" className="nav-link">
+                Admin
+              </Link>
             ) : (
-                <>
-                  <Link href="/cart" className="nav-link block">Cart</Link>
-                  <Link href="/dashboard" className="nav-link">Dashboard</Link>
+              <>
+                <Link href="/cart" className="nav-link block">
+                  <div className="badge badge-secondary">{item}</div>Cart
+                </Link>
+                <Link href="/dashboard" className="nav-link">
+                  Dashboard
+                </Link>
               </>
             )}
             {isClient && user ? (
               <>
-                <span className="text-gray-800 dark:text-white">{user?.name}</span>
+                <span className="text-gray-800 dark:text-white">
+                  {user?.name}
+                </span>
                 <button onClick={handleLogOut} className="btn-red w-full">
                   Logout
                 </button>
