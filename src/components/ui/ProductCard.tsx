@@ -8,7 +8,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   // const handleAddToCart = () => {};
 
   return (
-    <div className=" max-w-sm mx-auto w-full bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105">
+    <div className=" max-w-sm mx-auto  w-full bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105">
       {/* Image Section */}
       <div className="relative">
         <Image
@@ -17,8 +17,8 @@ const ProductCard = ({ product }: { product: TProduct }) => {
             "https://media.istockphoto.com/id/1396814518/vector/image-coming-soon-no-photo-no-thumbnail-image-available-vector-illustration.jpg?s=612x612&w=0&k=20&c=hnh2OZgQGhf0b46-J2z7aHbIWwq8HNlSDaNp2wn_iko="
           }
           alt={product.name}
-          width={500}
-          height={400}
+          width={300}
+          height={300}
           className="w-full h-64 object-cover rounded-t-lg"
         />
 
