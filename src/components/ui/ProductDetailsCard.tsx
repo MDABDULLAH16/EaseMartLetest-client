@@ -9,12 +9,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import DeleteProductButton from "./DeleteProduct";
+import ReviewForm from "../ReviewForm";
 
 const ProductDetailsCard = ({ product }: { product: TProduct }) => {
   const dispatch = useAppDispatch();
   const user = useSelector(selectUserInfo);
   console.log(user);
-  
 
   // Handle adding product to cart
   const handleAddToCart = () => {
@@ -35,8 +35,6 @@ const ProductDetailsCard = ({ product }: { product: TProduct }) => {
 
     // Dispatch the addToCart action with the product and userId
     dispatch(addToCart({ product, userId: user._id }));
-
-    
   };
 
   return (
@@ -57,10 +55,15 @@ const ProductDetailsCard = ({ product }: { product: TProduct }) => {
         </div>
         {/* Product Details */}
         <div className="flex flex-col justify-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-          <p className="text-xl font-semibold text-gray-700 mb-4">${product.price}</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            {product.name}
+          </h1>
+          <p className="text-xl font-semibold text-gray-700 mb-4">
+            ${product.price}
+          </p>
           <p className="text-sm text-gray-600 mb-2">
-            Available Stock: <span className="font-medium">{product.stockQuantity}</span>
+            Available Stock:{" "}
+            <span className="font-medium">{product.stockQuantity}</span>
           </p>
           <p className="text-sm text-gray-600 mb-2">
             Category: <span className="font-medium">{product.category}</span>
@@ -70,7 +73,10 @@ const ProductDetailsCard = ({ product }: { product: TProduct }) => {
           {user?.role === "admin" ? (
             <div className="flex flex-col text-center">
               {product._id && (
-                <DeleteProductButton key={product._id} productId={product._id} />
+                <DeleteProductButton
+                  key={product._id}
+                  productId={product._id}
+                />
               )}
               <Link
                 href={`/admin/productManagement/${product._id}`}
@@ -88,6 +94,12 @@ const ProductDetailsCard = ({ product }: { product: TProduct }) => {
             </button>
           )}
         </div>
+      </div>
+      <div className="mt-10">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+          Customer Reviews
+        </h2>
+        <ReviewForm key={product._id} productId={product._id} />
       </div>
     </div>
   );
