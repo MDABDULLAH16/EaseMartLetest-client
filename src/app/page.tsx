@@ -4,6 +4,7 @@ import Stat from "@/components/Stat";
 import ServicesStat from "@/components/ui/ServicesStat";
 import ReviewCard from "@/components/ReviewCard";
 import CategoryPage from "./categories/page";
+import AllReviewsPage from "./ProductReviews/page";
 
 const HomePage = () => {
   return (
@@ -13,7 +14,8 @@ const HomePage = () => {
       <CategoryPage />
       <ProductsPage />
       <ServicesStat />
-      <ReviewCard />
+      {/* <ReviewCard /> */}
+      <AllReviewsPage />
       <Stat />
     </div>
   );

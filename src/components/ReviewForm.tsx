@@ -110,6 +110,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
           </div>
         </form>
       </div>
+      {/* <RatingSummary key={} ratings={3}totalRatings={12} /> */}
     </div>
   );
 };

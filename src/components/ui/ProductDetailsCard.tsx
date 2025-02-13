@@ -10,11 +10,20 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import DeleteProductButton from "./DeleteProduct";
 import ReviewForm from "../ReviewForm";
+// import ReviewCardPDetails from "./ReviewCardPDetails";
+import { TReview } from "@/types/TReviews";
+import ReviewCardPDetails from "./ReviewCardPDetails";
+// import ProductReviewPage from "../ProductReview";
 
-const ProductDetailsCard = ({ product }: { product: TProduct }) => {
+const ProductDetailsCard = ({
+  product,
+  reviews,
+}: {
+  product: TProduct;
+  reviews: TReview[];
+}) => {
   const dispatch = useAppDispatch();
   const user = useSelector(selectUserInfo);
-  console.log(user);
 
   // Handle adding product to cart
   const handleAddToCart = () => {
@@ -65,9 +74,9 @@ const ProductDetailsCard = ({ product }: { product: TProduct }) => {
             Available Stock:{" "}
             <span className="font-medium">{product.stockQuantity}</span>
           </p>
-          <p className="text-sm text-gray-600 mb-2">
-            Category: <span className="font-medium">{product.category}</span>
-          </p>
+          {/* <p className="text-sm text-gray-600 mb-2">
+            Category: <span className="font-medium">{}</span>
+          </p> */}
           <p className="text-gray-700 text-md mt-4">{product.description}</p>
           {/* Admin Actions or Add to Cart Button */}
           {user?.role === "admin" ? (
@@ -95,11 +104,20 @@ const ProductDetailsCard = ({ product }: { product: TProduct }) => {
           )}
         </div>
       </div>
-      <div className="mt-10">
+      <div className="mt-10 space-y-2">
         <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-          Customer Reviews
+          Ratings and Reviews of {product.name}
         </h2>
-        <ReviewForm key={product._id} productId={product._id} />
+        {/* ReviewsMapping */}
+        <div className="space-y-2">
+          {reviews.map((review) => (
+            <ReviewCardPDetails reviews={review} key={review.description} />
+          ))}
+        </div>
+        {/* <ReviewCardPDetails reviews={reviews} /> */}
+        <div className="py-4">
+          <ReviewForm key={product._id} productId={product._id} />
+        </div>
       </div>
     </div>
   );
