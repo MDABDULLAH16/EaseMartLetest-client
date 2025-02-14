@@ -9,9 +9,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-
 import Cookies from "js-cookie";
-// Import Cookies utility for setting cookies
 
 export type FormValues = {
   email: string;
@@ -24,6 +22,7 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -35,22 +34,27 @@ const LoginPage = () => {
         return;
       }
 
-      // Extract user info and access token
       const { accessToken, userInfo } = res.data;
-
-      // Set the auth token in a cookie
-      Cookies.set("authToken", accessToken, { expires: 7 }); // Expires in 7 days
-
-      // Store user info in localStorage and Redux state
+      Cookies.set("authToken", accessToken, { expires: 7 });
       localStorage.setItem("userInfo", JSON.stringify(userInfo));
       dispatch(setUserInfo(userInfo));
 
-      // Show success message and redirect
       toast.success("User login successful");
-      router.push("/"); // Redirect to a protected route (e.g., /about or /dashboard)
+      router.push("/");
     } catch (err: any) {
       toast.warning(err.message || "An error occurred during login");
     }
+  };
+
+  const handleDemoLogin = (role: "admin" | "user") => {
+    const email =
+      role === "admin"
+        ? "admin@programming-hero.com"
+        : "user@programming-hero.com";
+    const password = "ph-password";
+    setValue("email", email);
+    setValue("password", password);
+    handleSubmit(onSubmit)();
   };
 
   return (
@@ -66,27 +70,55 @@ const LoginPage = () => {
           />
         </div>
         <div className="p-8">
-          <h1 className="text-3xl font-semibold text-center text-gray-700">Login</h1>
+          <h1 className="text-3xl font-semibold text-center text-gray-700">
+            Login
+          </h1>
+          <div className="flex justify-center space-x-4 my-4">
+            <button
+              onClick={() => handleDemoLogin("admin")}
+              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+            >
+              Admin Demo
+            </button>
+            <button
+              onClick={() => handleDemoLogin("user")}
+              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              User Demo
+            </button>
+          </div>
           <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-600">Email</label>
+              <label className="block text-sm font-medium text-gray-600">
+                Email
+              </label>
               <input
                 type="email"
                 {...register("email", { required: "Email is required" })}
                 placeholder="Enter your email"
                 className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300"
               />
-              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-600">Password</label>
+              <label className="block text-sm font-medium text-gray-600">
+                Password
+              </label>
               <input
                 type="password"
                 {...register("password", { required: "Password is required" })}
                 placeholder="Enter your password"
                 className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300"
               />
-              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
             <button
               type="submit"
@@ -96,22 +128,35 @@ const LoginPage = () => {
             </button>
           </form>
           <p className="text-center mt-4">
-            Don&apos;t have an account? <Link href="/register" className="text-blue-500 hover:underline">Sign up</Link>
+            Don&apos;t have an account?{" "}
+            <Link href="/register" className="text-blue-500 hover:underline">
+              Sign up
+            </Link>
           </p>
           <div className="mt-6 text-center">
             <p className="mb-2 text-gray-600">Or Sign In Using</p>
             <div className="flex justify-center space-x-4">
               <button
-                onClick={() => signIn("google", { callbackUrl: "/about" })} // Redirect to /about after Google login
+                onClick={() => signIn("google", { callbackUrl: "/about" })}
                 className="p-2 border rounded-full hover:shadow-lg"
               >
-                <Image src="/google-logo.png" width={30} height={30} alt="Google logo" />
+                <Image
+                  src="/google-logo.png"
+                  width={30}
+                  height={30}
+                  alt="Google logo"
+                />
               </button>
               <button
-                onClick={() => signIn("github", { callbackUrl: "/about" })} // Redirect to /about after GitHub login
+                onClick={() => signIn("github", { callbackUrl: "/about" })}
                 className="p-2 border rounded-full hover:shadow-lg"
               >
-                <Image src="/github-logo.png" width={30} height={30} alt="GitHub logo" />
+                <Image
+                  src="/github-logo.png"
+                  width={30}
+                  height={30}
+                  alt="GitHub logo"
+                />
               </button>
             </div>
           </div>

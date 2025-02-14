@@ -6,6 +6,8 @@ import Providers from "@/lib/Providers";
 import Footer from "@/components/shared/Footer";
 import AOSInitializer from "@/components/shared/AOSInitializer";
 
+import BannerContainer from "@/components/ui/BannerContainer";
+
 export const metadata: Metadata = {
   title: "EaseMart",
   description: "Stay busy with EaseMart",
@@ -22,7 +24,10 @@ export default function RootLayout({
         <body>
           <AOSInitializer />
           <Navbar />
-          <div className="min-h-screen w-[90%] mx-auto">{children}</div>
+          <div>
+            <BannerContainer />
+            <div className="min-h-screen w-[95%]  mx-auto"> {children}</div>
+          </div>
           <ToastContainer
             position="top-center"
             autoClose={1000}

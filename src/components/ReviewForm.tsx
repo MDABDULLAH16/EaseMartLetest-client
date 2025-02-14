@@ -38,6 +38,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
       productId,
       star,
       description: review,
+      createdAt: "",
+      _id: "",
     };
 
     console.log("Submitted Review:", reviewData);

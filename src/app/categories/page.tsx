@@ -3,6 +3,9 @@ import CategoryPage from "@/components/CategoriesPage";
 const CategoryPageWrapper = async () => {
   try {
     const url = process.env.BACKEND_URL;
+    if (!url) {
+      throw new Error("Backend URL is not defined");
+    }
     const allCategories = await fetch(`${url}/categories`, {
       cache: "no-cache",
       next: {

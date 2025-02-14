@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client';
+"use client";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { TUser } from "@/types/TUser";
 import { toast } from "react-toastify";
@@ -19,13 +19,13 @@ const MyInfoUpdateForm = ({ user }: { user: TUser }) => {
     register,
     handleSubmit,
     formState: { errors },
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+    // eslint-disable-next-line react-hooks/rules-of-hooks
   } = useForm<TUser>({
     defaultValues: {
       name: user.name || "",
       // email: user.email || "",
       phone: user.phone,
-     
+
       address: user.address || "",
     },
   });
@@ -38,11 +38,11 @@ const MyInfoUpdateForm = ({ user }: { user: TUser }) => {
         return null;
       }
       const res = await UpdateUser(user._id, data);
-      console.log('ress',res);
-      
+      console.log("ress", res);
+
       // Safe to use user._id here
       toast.success(res.message);
-      router.push('/dashboard');
+      router.push("/dashboard");
       router.refresh();
     } catch (err: any) {
       toast.warn(err.message);
@@ -121,7 +121,6 @@ const MyInfoUpdateForm = ({ user }: { user: TUser }) => {
           )}
         </div>
 
-        
         {/* Role Field user can never change his role
         <div className="mb-4">
           <label
@@ -156,6 +155,29 @@ const MyInfoUpdateForm = ({ user }: { user: TUser }) => {
             } rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             rows={3}
             placeholder="Enter your address"
+          />
+          {errors.address && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.address.message}
+            </p>
+          )}
+        </div>
+        {/* Profile picture */}
+        <div className="mb-4">
+          <label
+            htmlFor="address"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Profile Picture
+          </label>
+          <textarea
+            id="profilePicture"
+            {...register("address")}
+            className={`w-full px-3 py-2 border ${
+              errors.address ? "border-red-500" : "border-gray-300"
+            } rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
+            rows={3}
+            placeholder="Enter your picture URL"
           />
           {errors.address && (
             <p className="text-red-500 text-sm mt-1">

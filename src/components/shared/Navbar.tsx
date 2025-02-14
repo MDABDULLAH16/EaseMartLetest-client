@@ -87,10 +87,14 @@ const Navbar = () => {
                     </div>
                   </div>
                 </Link>
-                <Link href="/dashboard" className="nav-link">
-                  Dashboard
-                </Link>
               </>
+            )}
+            {user?.role === "user" ? (
+              <Link href="/dashboard" className="nav-link">
+                Dashboard
+              </Link>
+            ) : (
+              ""
             )}
           </div>
 
@@ -131,7 +135,10 @@ const Navbar = () => {
                 </button>
               </>
             ) : (
-              <Link href="/login" className="btn-primary">
+              <Link
+                href="/login"
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              >
                 Login
               </Link>
             )}
@@ -170,12 +177,18 @@ const Navbar = () => {
                 <span className="text-gray-800 dark:text-white">
                   {user?.name}
                 </span>
-                <button onClick={handleLogOut} className="btn-red w-full">
+                <button
+                  onClick={handleLogOut}
+                  className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                >
                   Logout
                 </button>
               </>
             ) : (
-              <Link href="/login" className="btn-primary w-full">
+              <Link
+                href="/login"
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              >
                 Login
               </Link>
             )}
