@@ -31,7 +31,7 @@ const CategoryPage = ({ categories }: { categories: TCategory[] }) => {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className=" max-w-7xl mb-4 mx-auto">
       <div className="flex justify-center">
         <TitleSection optional={"Categories"} />
       </div>
@@ -68,7 +68,7 @@ const CategoryPage = ({ categories }: { categories: TCategory[] }) => {
           </div>
 
           {/* Categories Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8 overflow-hidden transition-transform duration-300">
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 pb-4  mb-4 gap-6 mt-8 overflow-hidden transition-transform duration-300">
             {currentCategories.map((category: TCategory) => (
               <CategoryCardForUser key={category._id} category={category} />
             ))}

@@ -16,16 +16,16 @@ const AllReviewsPage = async () => {
   const reviews = reviewsData.data;
 
   // Sort reviews by the 'createdAt' field (or any other timestamp field)
-  // const sortedReviews = reviews.sort(
-  //   (a: TReview, b: TReview) =>
-  //     new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  // );
+  const sortedReviews = reviews.sort(
+    (a: TReview, b: TReview) =>
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
   // console.log("all reviews", sortedReviews);
 
   // console.log("all reviews", sortedReviews);
 
   return (
-    <div>
+    <div className="">
       {/* Title Section */}
       <div>
         <TitleSection
@@ -36,8 +36,8 @@ const AllReviewsPage = async () => {
       </div>
 
       {/* Reviews Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {reviews.slice(0, 8).map((review: TReview) => (
+      <div className="grid mb-4 grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {sortedReviews.slice(0, 8).map((review: TReview) => (
           <ReviewCard review={review} key={review._id} />
         ))}
       </div>

@@ -47,13 +47,13 @@ const ProductDetailsCard = ({
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-4 bg-gray-50 rounded-lg shadow-md">
+    <div className="max-w-full mx-auto m-4 p-4 bg-gray-50 rounded-lg shadow-md">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Product Image */}
         <div className="flex justify-center">
           <Image
-            width={300}
-            height={300}
+            width={500}
+            height={500}
             src={
               product.image ||
               "https://media.istockphoto.com/id/1396814518/vector/image-coming-soon-no-photo-no-thumbnail-image-available-vector-illustration.jpg?s=612x612&w=0&k=20&c=hnh2OZgQGhf0b46-J2z7aHbIWwq8HNlSDaNp2wn_iko="

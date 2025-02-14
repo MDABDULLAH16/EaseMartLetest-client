@@ -13,7 +13,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
 
         {/* Description */}
         <p className="text-gray-600 text-sm leading-relaxed mb-4">
-          {review.description}
+          {review.description.length > 100 ? review.description.slice(0, 100)+ '...': review.description}
         </p>
 
         {/* Star Rating */}

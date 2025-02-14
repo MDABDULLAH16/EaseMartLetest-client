@@ -88,7 +88,7 @@ const ProductContainer = ({
   }
 
   return (
-    <div className="space-y-6 m-6">
+    <div className="space-y-4 m-4">
       {!isProductManage && (
         <TitleSection
           header={"Our Awesome"}
@@ -139,7 +139,7 @@ const ProductContainer = ({
         </div>
       )}
       {/* Products Grid */}
-      <div className="grid mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid mx-auto grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
         {paginatedProducts.length > 0 ? (
           paginatedProducts.map((product) => (
             <ProductCard key={product._id} product={product} />

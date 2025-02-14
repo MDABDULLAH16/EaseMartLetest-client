@@ -58,9 +58,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen  p-4">
       <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
-        <div className="hidden md:flex items-center justify-center p-6">
+        <div className=" md:flex items-center justify-center p-6">
           <Image
             src="https://img.freepik.com/free-vector/login-concept-illustration_114360-739.jpg"
             width={400}
