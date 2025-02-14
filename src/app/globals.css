@@ -32,5 +32,4 @@ body {
      @apply flex items-center justify-center p-3 rounded-full border border-gray-300 
      hover:bg-gray-200 dark:hover:bg-gray-700 transition;
    }
-   
-   
+  

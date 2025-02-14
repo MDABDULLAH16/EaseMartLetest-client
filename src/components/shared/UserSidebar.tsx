@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const UserSidebar = () => {
   return (
-    <div className="">
+    <div className="!w-full">
       <ul className="menu bg-base-200 min-h-screen rounded-box">
         <li>
           <Link href="/dashboard">
@@ -24,7 +24,7 @@ const UserSidebar = () => {
           </Link>
         </li>
         <li>
-          <Link href="/dashboard/my-info">
+          <Link href="/dashboard/cart">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"

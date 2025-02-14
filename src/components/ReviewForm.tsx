@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { selectUserInfo } from "@/redux/features/userDetailsSlice";
-import { TReview } from "@/types/TReviews";
+// import { TReview } from "@/types/TReviews";
 import CreateReviews from "@/utils/actions/CreateReview";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -33,13 +33,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
       return;
     }
 
-    const reviewData: TReview = {
+    const reviewData: any = {
       userName: user.name,
       productId,
       star,
       description: review,
-      createdAt: "",
-      _id: "",
     };
 
     console.log("Submitted Review:", reviewData);

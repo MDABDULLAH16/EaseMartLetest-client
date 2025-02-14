@@ -1,7 +1,6 @@
 import AdminSidebar from "@/components/shared/AdminSidebar";
 import type { Metadata } from "next";
 
-
 export const metadata: Metadata = {
   title: "EaseMart Admin Dashboard",
   description: "Manage apps here",
@@ -13,7 +12,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen my-2">
+    <div className="min-h-screen my-2 !w-full">
       <div className="flex justify-between">
         <div className="w-[20%]">
           <AdminSidebar />

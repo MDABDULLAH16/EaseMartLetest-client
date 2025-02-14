@@ -43,8 +43,8 @@ const Navbar = () => {
   const item = cartItems.length;
 
   return (
-    <nav className="bg-white w-[90%]: shadow-md dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-white w-full shadow-md dark:bg-gray-900 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -78,7 +78,7 @@ const Navbar = () => {
               </Link>
             ) : (
               <>
-                <Link href="/cart" className="nav-link block">
+                <Link href="/dashboard/cart" className="nav-link block">
                   <div className="relative  rounded-lg">
                     <span className="font-bold ml-2">Cart</span>
                     <div className="px-1 py-0.5 bg-teal-500 min-w-5 rounded-full text-center text-white text-xs absolute -top-4 -end-1 translate-x-1/4 text-nowrap">
@@ -164,7 +164,7 @@ const Navbar = () => {
               </Link>
             ) : (
               <>
-                <Link href="/cart" className="nav-link block">
+                <Link href="/dashboard/cart" className="nav-link block">
                   <div className="badge badge-secondary">{item}</div>Cart
                 </Link>
                 <Link href="/dashboard" className="nav-link">

@@ -26,7 +26,7 @@ export default function RootLayout({
           <Navbar />
           <div>
             <BannerContainer />
-            <div className="min-h-screen w-[95%]  mx-auto"> {children}</div>
+            <div className="min-h-screen max-w-[90%] mx-auto overflow-hidden"> {children}</div>
           </div>
           <ToastContainer
             position="top-center"

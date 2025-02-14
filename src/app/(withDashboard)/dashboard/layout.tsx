@@ -10,14 +10,13 @@ export default function DashboardLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-gray-50 dark:bg-gray-800">
+    <div className="min-h-screen !w-full flex flex-col md:flex-row bg-gray-50 dark:bg-gray-800">
       {/* Sidebar */}
-      <div className="md:w-[20%] bg-white dark:bg-gray-900 shadow-lg">
+      <div className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 h-screen overflow-y-hidden z-10">
         <UserSidebar />
       </div>
-
       {/* Main Content Area */}
-      <div className="flex-1 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
+      <div className="flex-1 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md overflow-y-auto">
         {children}
       </div>
     </div>

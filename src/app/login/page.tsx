@@ -71,20 +71,20 @@ const LoginPage = () => {
         </div>
         <div className="p-8">
           <h1 className="text-3xl font-semibold text-center text-gray-700">
-            Login
+            Welcome to EaseMart
           </h1>
           <div className="flex justify-center space-x-4 my-4">
             <button
               onClick={() => handleDemoLogin("admin")}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
             >
-              Admin Demo
+              Admin Credential
             </button>
             <button
               onClick={() => handleDemoLogin("user")}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
             >
-              User Demo
+              User Credential
             </button>
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="mt-6">

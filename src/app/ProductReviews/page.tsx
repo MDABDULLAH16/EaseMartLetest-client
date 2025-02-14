@@ -15,11 +15,12 @@ const AllReviewsPage = async () => {
   const reviewsData = await res.json();
   const reviews = reviewsData.data;
 
-  // // Sort reviews by the 'createdAt' field (or any other timestamp field)
+  // Sort reviews by the 'createdAt' field (or any other timestamp field)
   // const sortedReviews = reviews.sort(
   //   (a: TReview, b: TReview) =>
   //     new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   // );
+  // console.log("all reviews", sortedReviews);
 
   // console.log("all reviews", sortedReviews);
 

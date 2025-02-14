@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Banner = () => {
   return (
-    <div className="relative w-screen left-0 right-0 mx-auto overflow-hidden">
+    <div className="relative w-full left-0 right-0 mx-auto overflow-hidden">
       {/* Full-width background */}
       <div className="absolute inset-0">
         <Image
