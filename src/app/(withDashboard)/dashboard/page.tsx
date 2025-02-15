@@ -1,11 +1,11 @@
-import UserProfile from "../../../components/shared/UserProfile";
+
 
 
 const DashboardPage = () => {
   
   return (
     <div>
-      <UserProfile />
+      <h1>this is user dashboard</h1>
     </div>
   );
 };

@@ -38,7 +38,7 @@ export default function RootLayout({
             rtl={false}
             pauseOnFocusLoss
             draggable
-            pauseOnHover
+            
             theme="light"
             transition={Bounce}
           />

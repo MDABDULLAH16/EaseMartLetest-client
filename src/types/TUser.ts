@@ -6,4 +6,5 @@ export interface TUser {
   phone: number;
   role?: "admin" | "user";
   address: string;
+  image: string;
 }

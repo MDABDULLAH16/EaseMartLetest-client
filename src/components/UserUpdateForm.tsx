@@ -5,9 +5,12 @@ import { TUser } from "@/types/TUser";
 import { toast } from "react-toastify";
 import UpdateUser from "@/utils/actions/UpdateUser";
 import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/redux/hooks";
+import { setUserInfo } from "@/redux/features/userDetailsSlice";
 
 const UpdateUserForm = ({ user }: { user: TUser }) => {
   const router = useRouter();
+  const dispatch = useAppDispatch()
 
   // Ensure user._id exists before proceeding
   if (!user._id) {
@@ -37,7 +40,9 @@ const UpdateUserForm = ({ user }: { user: TUser }) => {
         toast.warn("User ID is missing. Cannot update profile.");
         return null;
       }
-      const res = await UpdateUser(user._id, data); // Safe to use user._id here
+      const res = await UpdateUser(user._id, data);
+      dispatch(setUserInfo(res.data));
+      // Safe to use user._id here
       toast.success(res.message);
       router.push('/admin/userManage');
       router.refresh();

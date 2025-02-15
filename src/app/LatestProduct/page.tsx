@@ -1,5 +1,4 @@
-// import ProductContainer from "@/components/ProductContainer";
-import TitleSection from "@/components/shared/TitleWithHelmet";
+
 import LatestProductCard from "@/components/ui/LatestProductCard";
 import { TProduct } from "@/types/TProducts";
 
@@ -18,7 +17,7 @@ const LatestProductsPage = async () => {
          new Date(b.createdAt).getTime() - new Date(a.createdAt ).getTime()
      );
 
-    console.log("Sorted Products:", latestProducts);
+    // console.log("Sorted Products:", latestProducts);
 
     // Fetch categories
     // const categoriesRes = await fetch(`${process.env.BACKEND_URL}/categories`, {

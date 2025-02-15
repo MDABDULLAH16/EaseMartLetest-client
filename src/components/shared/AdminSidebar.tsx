@@ -23,7 +23,7 @@ const AdminSidebar = () => {
     router.refresh();
   };
   return (
-    <div className="">
+    <div className=" sm: text-sm">
       <ul className="menu bg-gray-200 h-svh rounded-box ">
         <li>
           <Link href="/">

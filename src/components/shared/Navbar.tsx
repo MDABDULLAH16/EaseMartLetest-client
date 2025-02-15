@@ -3,41 +3,34 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../../assets/EaseMart.png";
 
-import {
-  clearUserInfo,
-  selectUserInfo,
-} from "@/redux/features/userDetailsSlice";
+import { selectUserInfo } from "@/redux/features/userDetailsSlice";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import { useAppDispatch } from "@/redux/hooks";
+
 import { RootState } from "@/redux/store";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false); // Track client-side rendering
   const user = useSelector(selectUserInfo);
 
-  const router = useRouter();
-
   useEffect(() => {
     setIsClient(true); // Set to true after the component mounts on the client
   }, []);
 
-  const handleLogOut = async () => {
-    // await signOut({ redirect: false, callbackUrl: "/login" });
-    dispatch(clearUserInfo());
-    // Clear the auth token cookie
-    Cookies.remove("authToken");
+  // const handleLogOut = async () => {
+  //   // await signOut({ redirect: false, callbackUrl: "/login" });
+  //   dispatch(clearUserInfo());
+  //   // Clear the auth token cookie
+  //   Cookies.remove("authToken");
 
-    // Clear user info from localStorage
-    localStorage.removeItem("userInfo");
+  //   // Clear user info from localStorage
+  //   localStorage.removeItem("userInfo");
 
-    router.push("/login");
-    router.refresh();
-  };
+  //   router.push("/login");
+  //   router.refresh();
+  // };
 
-  const dispatch = useAppDispatch();
   const allCartItems = useSelector((state: RootState) => state.cart.items);
   const cartItems = allCartItems.filter((item) => item.userId === user?._id);
   const item = cartItems.length;
@@ -127,12 +120,16 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             {isClient && user ? (
               <>
-                <span className="text-gray-800 dark:text-white">
+                <span className="text-gray-800 font-semibold text-xl dark:text-white">
                   {user?.name}
                 </span>
-                <button onClick={handleLogOut} className="btn-red">
-                  Logout
-                </button>
+                <Image
+                  src={user?.image || "/fallback-avatar.png"}
+                  alt="Profile"
+                  className="w-12 h-12 rounded-full object-cover"
+                  width={32}
+                  height={32}
+                />
               </>
             ) : (
               <Link
@@ -173,17 +170,18 @@ const Navbar = () => {
               </>
             )}
             {isClient && user ? (
-              <>
+              <div className="flex items-start flex-col space-x-4">
                 <span className="text-gray-800 dark:text-white">
                   {user?.name}
                 </span>
-                <button
-                  onClick={handleLogOut}
-                  className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                >
-                  Logout
-                </button>
-              </>
+                <Image
+                  src={user?.image || "/fallback-avatar.png"}
+                  alt="Profile"
+                  className="w-8 h-8 rounded-full object-cover"
+                  width={32}
+                  height={32}
+                />
+              </div>
             ) : (
               <Link
                 href="/login"

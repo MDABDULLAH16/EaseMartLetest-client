@@ -2,12 +2,15 @@ import Link from "next/link";
 import { IoCartOutline } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa6";
 
-import { useAppDispatch } from "@/redux/hooks";
-import { clearUserInfo } from "@/redux/features/userDetailsSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { clearUserInfo, selectUserInfo } from "@/redux/features/userDetailsSlice";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
+
 const UserSidebar = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const user = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const handleLogOut = async () => {
@@ -71,7 +74,7 @@ const UserSidebar = () => {
       
        
         <li>
-          <Link href="/admin/myProfile">
+          <Link href={`/dashboard/userInfo`}>
             <FaRegUser className="text-xl" />
             My Profile
           </Link>

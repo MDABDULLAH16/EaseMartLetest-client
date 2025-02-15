@@ -4,7 +4,7 @@ import MyInfoUpdateForm from "@/components/MyinfoUpdateForm";
 
 import { TUser } from "@/types/TUser";
 
-const UserUpdatePage = async ({ params }: any) => {
+const AdminUpdatePage = async ({ params }: any) => {
   const url = process.env.BACKEND_URL;
 
   // Fetch user data from the backend
@@ -29,4 +29,4 @@ const UserUpdatePage = async ({ params }: any) => {
   );
 };
 
-export default UserUpdatePage;
+export default AdminUpdatePage;
