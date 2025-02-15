@@ -125,8 +125,8 @@ const UserProfile = () => {
                 src={image || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}
                 alt="Profile"
                 className="w-36 h-36 rounded-full object-cover border-4 border-white dark:border-gray-800 shadow-lg"
-                width={144}
-                height={144}
+                width={150}
+                height={150}
                 onError={(e) => {
                   e.currentTarget.src = "/fallback-avatar.png";
                 }}

@@ -14,13 +14,13 @@ export default function DashboardLayout({
       {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-screen bg-gray-200 shadow-lg transition-all duration-300 z-50
-          ${isSidebarOpen ? "w-[250px] md:w-[20%]" : "w-[50px] md:w-[60px]"} 
+          ${isSidebarOpen ? "w-[250px] md:w-[20%]" : "w-[60px] md:w-[50px]"} 
           overflow-hidden`}
       >
         {/* Toggle Button */}
         <div className="flex justify-end p-2">
           <button
-            className="bg-gray-800 text-white p-2 rounded"
+            className="p-2 rounded"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
             <svg
@@ -30,7 +30,7 @@ export default function DashboardLayout({
               viewBox="0 0 24 24"
             >
               <path
-                fill="#ffffff"
+                fill="#000000"
                 d={
                   isSidebarOpen
                     ? "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
@@ -42,18 +42,17 @@ export default function DashboardLayout({
         </div>
 
         {/* Sidebar Content */}
-        <div
-          className={`h-full flex flex-col transition-all duration-300
-            ${isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible md:opacity-100 md:visible"}`}
-        >
-          <UserSidebar />
-        </div>
+        {isSidebarOpen && (
+          <div className="h-full flex flex-col transition-all duration-300">
+            <UserSidebar />
+          </div>
+        )}
       </div>
 
       {/* Main Content Area */}
       <div
         className={`flex-1 min-h-screen bg-base-200 transition-all duration-300 
-          ${isSidebarOpen ? "ml-[250px] md:ml-[20%]" : "ml-[50px] md:ml-[60px]"}`}
+          ${isSidebarOpen ? "ml-[250px] md:ml-[20%]" : "ml-[60px] md:ml-[50px]"}`}
       >
         {children}
       </div>

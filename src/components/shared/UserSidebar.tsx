@@ -27,7 +27,7 @@ const UserSidebar = () => {
   };
   return (
     <div className="">
-      <ul className="menu bg-gray-200 h-svh rounded-box ">
+      <ul className="menu sm:flex sm:flex-col  bg-gray-200 h-svh rounded-box ">
         <li>
           <Link href="/">
             <svg
