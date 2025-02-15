@@ -5,6 +5,7 @@ import { TCategory } from "@/types/TCategory";
 import ProductCard from "./ui/ProductCard";
 import TitleSection from "./shared/TitleWithHelmet";
 import { usePathname, useSearchParams } from "next/navigation";
+import ProductTableCard from "./ui/ProductTableCard";
 
 const ProductContainer = ({
   products,
@@ -16,8 +17,8 @@ const ProductContainer = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortBy, setSortBy] = useState("default"); // Sorting state
-  const itemsPerPage = 8; // Number of products per page
+  const [sortBy, setSortBy] = useState("default");
+  const itemsPerPage = 8;
 
   // Map category IDs to names for filtering
   const categoryMap = new Map(categories.map((cat) => [cat._id, cat.name]));
@@ -27,7 +28,7 @@ const ProductContainer = ({
   const pathName = usePathname();
   const isHomePage = pathName === "/";
   const isProductManage = pathName === "/admin/productManagement";
-  // Extract category from query parameters
+
   useEffect(() => {
     const categoryFromQuery = searchParams.get("category");
     if (categoryFromQuery) {
@@ -39,9 +40,10 @@ const ProductContainer = ({
 
   // Filter products based on search and category
   const filteredProducts = products.filter((product) => {
-    const categoryName = categoryMap.get(product.category); // Get category name from category ID
+    const categoryName = categoryMap.get(product.category)?.toLowerCase() || "";
     const matchesCategory =
-      selectedCategory === "All" || categoryName === selectedCategory;
+      selectedCategory.toLowerCase() === "all" ||
+      categoryName === selectedCategory.toLowerCase();
     const matchesSearch = product.name
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
@@ -51,11 +53,11 @@ const ProductContainer = ({
   // Sort products based on the selected option
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortBy === "priceHighToLow") {
-      return b.price - a.price; // High to Low
+      return b.price - a.price;
     } else if (sortBy === "priceLowToHigh") {
-      return a.price - b.price; // Low to High
+      return a.price - b.price;
     }
-    return 0; // Default: no sorting
+    return 0;
   });
 
   // Pagination logic
@@ -65,7 +67,6 @@ const ProductContainer = ({
     currentPage * itemsPerPage
   );
 
-  // Handlers
   const handleClearFilters = () => {
     setSearchTerm("");
     setSelectedCategory("All");
@@ -83,23 +84,20 @@ const ProductContainer = ({
     setIsClient(true);
   }, []);
 
-  if (!isClient) {
-    return null; // Render nothing until client-side code runs
-  }
+  if (!isClient) return null;
 
   return (
     <div className="space-y-4 m-4">
       {!isProductManage && (
         <TitleSection
-          header={"Our Awesome"}
-          optional={"Product"}
-          title={"Product"}
+          header="Our Awesome"
+          optional="Product"
+          title="Product"
         />
       )}
-      {/* Filters Section */}
+      
       {!isHomePage && (
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Search Input */}
           <input
             type="text"
             placeholder="Search products..."
@@ -107,7 +105,6 @@ const ProductContainer = ({
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full md:w-1/3 p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
           />
-          {/* Categories Dropdown */}
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
@@ -119,7 +116,6 @@ const ProductContainer = ({
               </option>
             ))}
           </select>
-          {/* Sort By Dropdown */}
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
@@ -129,7 +125,6 @@ const ProductContainer = ({
             <option value="priceHighToLow">Price High to Low</option>
             <option value="priceLowToHigh">Price Low to High</option>
           </select>
-          {/* Clear Filters Button */}
           <button
             onClick={handleClearFilters}
             className="bg-red-500 text-white px-6 py-2 rounded-md shadow-sm hover:bg-red-400 transition duration-200"
@@ -138,19 +133,52 @@ const ProductContainer = ({
           </button>
         </div>
       )}
-      {/* Products Grid */}
-      <div className="grid mx-auto grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-        {paginatedProducts.length > 0 ? (
-          paginatedProducts.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))
-        ) : (
-          <p className="text-center text-gray-500 col-span-full">
-            No products found.
-          </p>
-        )}
-      </div>
-      {/* Pagination */}
+
+      {isProductManage ? (
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse border border-gray-300">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="border border-gray-300 p-2">Image</th>
+                <th className="border border-gray-300 p-2">Name</th>
+                <th className="border border-gray-300 p-2">Description</th>
+                <th className="border border-gray-300 p-2">Price</th>
+                <th className="border border-gray-300 p-2">Stock</th>
+                <th className="border border-gray-300 p-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {paginatedProducts.length > 0 ? (
+                paginatedProducts.map((product) => (
+                  <ProductTableCard key={product._id} product={product} />
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan={6}
+                    className="text-center text-gray-500 p-4"
+                  >
+                    No products found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="grid mx-auto grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+          {paginatedProducts.length > 0 ? (
+            paginatedProducts.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))
+          ) : (
+            <p className="text-center text-gray-500 col-span-full">
+              No products found.
+            </p>
+          )}
+        </div>
+      )}
+
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-2 mt-4">
           {Array.from({ length: totalPages }, (_, index) => index + 1).map(

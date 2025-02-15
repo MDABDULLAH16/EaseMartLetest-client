@@ -5,7 +5,7 @@ import Footer from './shared/Footer';
 
 const FooterContainer = () => {
     const patheName = usePathname()
-    const isAdmin = patheName.includes('/admin')
+    const isAdmin = patheName.startsWith('/admin') || patheName.startsWith('/dashboard')
     return (
         <div>
             { isAdmin? '': <Footer/>}

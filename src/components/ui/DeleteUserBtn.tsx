@@ -33,7 +33,7 @@ const DeleteUserButton = ({ userId }: { userId: string }) => {
           disabled={loading}
     className="px-3 py-2 bg-red-500 text-white rounded-md text-sm flex items-center gap-1 hover:bg-red-600 transition"
    >
-    <FiTrash2 /> Delete {loading ? "Deleting..." : "Delete"}
+    <FiTrash2 /> {loading ? "Deleting..." : "Delete"}
    </button>
   );
 };

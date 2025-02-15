@@ -77,7 +77,11 @@ const ProductDetailsCard = ({
           {/* <p className="text-sm text-gray-600 mb-2">
             Category: <span className="font-medium">{}</span>
           </p> */}
-          <p className="text-gray-700 text-md mt-4">{product.description}</p>
+          <p className="text-gray-700 text-md mt-4">
+            {product.description.length > 520
+              ? product.description.slice(0, 520) + "..."
+              : product.description}
+          </p>
           {/* Admin Actions or Add to Cart Button */}
           {user?.role === "admin" ? (
             <div className="flex flex-col text-center">

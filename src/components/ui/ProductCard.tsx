@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { TProduct } from "@/types/TProducts";
 
+
 const ProductCard = ({ product }: { product: TProduct }) => {
   // const handleAddToCart = () => {};
-
+ 
   return (
     <div className=" max-w-sm mx-auto  w-full bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105">
       {/* Image Section */}

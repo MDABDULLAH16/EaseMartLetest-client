@@ -7,7 +7,7 @@ const TitleSection = ({ title, header, optional }: any) => {
       <Head>
         <title>{`EaseMart | ${title}`}</title>
       </Head>
-      <div className="text-center font-semibold text-4xl" data-aos="fade-down">
+      <div className="text-center font-semibold text-4xl" >
         <h1 className="py-6">
           {header} <span className=" text-4xl">{optional}</span>
         </h1>
