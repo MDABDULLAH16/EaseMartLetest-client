@@ -62,8 +62,8 @@ const Navbar = () => {
               Products
             </Link>
 
-            <Link href="/about" className="nav-link">
-              About Us
+            <Link href="/contact" className="nav-link">
+              Contact Us
             </Link>
             {isClient && user?.role === "admin" ? (
               <Link href="/admin" className="nav-link">
@@ -152,8 +152,8 @@ const Navbar = () => {
               Products
             </Link>
 
-            <Link href="/about" className="nav-link block">
-              About Us
+            <Link href="/contact" className="nav-link block">
+              Contact Us
             </Link>
             {isClient && user?.role === "admin" ? (
               <Link href="/admin" className="nav-link">
