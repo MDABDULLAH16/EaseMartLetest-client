@@ -49,7 +49,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ categories }) => {
       setLoading(false);
       return;
     }
-
     if (isNaN(stockQuantity) || stockQuantity < 0) {
       toast.error("Please enter a valid stock quantity.");
       setLoading(false);
@@ -62,11 +61,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ categories }) => {
         price,
         stockQuantity,
       } as TProduct;
-      // console.log('payload',payload);
-      
+
       const res = await CreateProduct(payload);
-      console.log(res);
-      // Call API utility
       toast.success(res?.message || "Product created successfully!");
       router.push("/admin/productManagement"); // Redirect after success
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -79,147 +75,150 @@ const ProductForm: React.FC<ProductFormProps> = ({ categories }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-        Create a New Product
-      </h2>
-      <form onSubmit={handleSubmit}>
-        {/* Name Field */}
-        <div className="mb-4">
-          <label
-            className="block text-sm font-medium text-gray-700 mb-2"
-            htmlFor="name"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Enter product name"
-            required
-          />
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      {/* Form Container */}
+      <div className="w-full max-w-4xl p-6 bg-white rounded-lg shadow-md md:p-8 overflow-y-auto max-h-[90vh]">
+        <h2 className="text-xl font-bold text-center mb-4 text-gray-800 sm:text-2xl">
+          Create a New Product
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Row 1: Name and Price */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                placeholder="Enter product name"
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="price"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Price
+              </label>
+              <input
+                type="number"
+                step="0.01"
+                id="price"
+                name="price"
+                value={formData.price}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                placeholder="Enter product price"
+                required
+              />
+            </div>
+          </div>
 
-        {/* Description Field */}
-        <div className="mb-4">
-          <label
-            className="block text-sm font-medium text-gray-700 mb-2"
-            htmlFor="description"
-          >
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleInputChange}
-            className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Enter product description"
-            rows={4}
-            required
-          />
-        </div>
+          {/* Row 2: Stock Quantity and Category */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label
+                htmlFor="stockQuantity"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Stock Quantity
+              </label>
+              <input
+                type="number"
+                id="stockQuantity"
+                name="stockQuantity"
+                value={formData.stockQuantity}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                placeholder="Enter stock quantity"
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="category"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Category
+              </label>
+              <select
+                id="category"
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                required
+              >
+                <option value="">Select a category</option>
+                {safeCategories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
-        {/* Price Field */}
-        <div className="mb-4">
-          <label
-            className="block text-sm font-medium text-gray-700 mb-2"
-            htmlFor="price"
-          >
-            Price
-          </label>
-          <input
-            type="number"
-            step="0.01"
-            id="price"
-            name="price"
-            value={formData.price}
-            onChange={handleInputChange}
-            className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Enter product price"
-            required
-          />
-        </div>
+          {/* Row 3: Image URL */}
+          <div>
+            <label
+              htmlFor="image"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Image URL
+            </label>
+            <input
+              type="text"
+              id="image"
+              name="image"
+              value={formData.image}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              placeholder="Enter product image URL"
+              required
+            />
+          </div>
 
-        {/* Stock Quantity Field */}
-        <div className="mb-4">
-          <label
-            className="block text-sm font-medium text-gray-700 mb-2"
-            htmlFor="stockQuantity"
-          >
-            Stock Quantity
-          </label>
-          <input
-            type="number"
-            id="stockQuantity"
-            name="stockQuantity"
-            value={formData.stockQuantity}
-            onChange={handleInputChange}
-            className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Enter stock quantity"
-            required
-          />
-        </div>
+          {/* Row 4: Description */}
+          <div>
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+              placeholder="Enter product description"
+              rows={1}
+              required
+            />
+          </div>
 
-        {/* Category Dropdown */}
-        <div className="mb-4">
-          <label
-            className="block text-sm font-medium text-gray-700 mb-2"
-            htmlFor="category"
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full py-3 px-6 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={loading}
+            aria-label="Submit product form"
           >
-            Category
-          </label>
-          <select
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleInputChange}
-            className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            required
-          >
-            <option value="">Select a category</option>
-            {safeCategories.map((category) => (
-              <option key={category._id} value={category._id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Image URL Field */}
-        <div className="mb-4">
-          <label
-            className="block text-sm font-medium text-gray-700 mb-2"
-            htmlFor="image"
-          >
-            Image URL
-          </label>
-          <input
-            type="text"
-            id="image"
-            name="image"
-            value={formData.image}
-            onChange={handleInputChange}
-            className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Enter product image URL"
-            required
-          />
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full py-2 px-4 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition duration-200 disabled:opacity-50"
-          disabled={loading}
-          aria-label="Submit product form"
-        >
-          {loading ? "Creating..." : "Submit"}
-        </button>
-      </form>
+            {loading ? "Creating..." : "Submit"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
