@@ -47,7 +47,7 @@ const Navbar = () => {
                 alt="EaseMart"
                 width={50}
                 height={50}
-                className="w-12 h-12 rounded-full"
+                className="w-20 h-16 rounded-full"
                 priority
               />
             </Link>
@@ -124,7 +124,7 @@ const Navbar = () => {
                   {user?.name}
                 </span>
                 {user?.role === "admin" ? (
-                  <Link href={"/admin/myProfile"} passHref>
+                  <Link href={"/admin"} passHref>
                     <Image
                       src={user?.image || profile.src}
                       alt="Profile"
@@ -134,7 +134,7 @@ const Navbar = () => {
                     />
                   </Link>
                 ) : (
-                  <Link href={"/dashboard/userInfo"} passHref>
+                  <Link href={"/dashboard"} passHref>
                     <Image
                       src={user?.image || profile.src}
                       alt="Profile"

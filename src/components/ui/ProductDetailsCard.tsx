@@ -64,8 +64,8 @@ const ProductDetailsCard = ({
         </div>
         {/* Product Details */}
         <div className="flex flex-col justify-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {product.name}
+          <h1 title={ product.name} className="text-3xl font-bold text-gray-900 mb-2">
+            {product.name.length > 30 ? product.name.slice(0, 30) + "..." : product.name}
           </h1>
           <p className="text-xl font-semibold text-gray-700 mb-4">
             ${product.price}
