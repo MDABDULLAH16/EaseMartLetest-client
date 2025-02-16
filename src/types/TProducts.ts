@@ -7,7 +7,7 @@ export interface TProduct {
   category?: string;
   image: string;
   isDeleted?: boolean;
-  createdAt: string | number | Date;
+  createdAt?: string | number | Date;
   updatedAt?:string | number | Date;
   _id?: string;
   _v?: number;

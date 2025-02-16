@@ -7,7 +7,7 @@ import { selectUserInfo } from "@/redux/features/userDetailsSlice";
 import { useSelector } from "react-redux";
 
 import { useEffect, useState } from "react";
-
+import profile from "../../assets/profile.png";
 import { RootState } from "@/redux/store";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -123,13 +123,27 @@ const Navbar = () => {
                 <span className="text-gray-800 font-semibold text-xl dark:text-white">
                   {user?.name}
                 </span>
-                <Image
-                  src={user?.image || "/fallback-avatar.png"}
-                  alt="Profile"
-                  className="w-12 h-12 rounded-full object-cover"
-                  width={32}
-                  height={32}
-                />
+                {user?.role === "admin" ? (
+                  <Link href={"/admin/myProfile"} passHref>
+                    <Image
+                      src={user?.image || profile.src}
+                      alt="Profile"
+                      className="w-12 h-12 rounded-full object-cover"
+                      width={32}
+                      height={32}
+                    />
+                  </Link>
+                ) : (
+                  <Link href={"/dashboard/userInfo"} passHref>
+                    <Image
+                      src={user?.image || profile.src}
+                      alt="Profile"
+                      className="w-12 h-12 rounded-full object-cover"
+                      width={32}
+                      height={32}
+                    />
+                  </Link>
+                )}
               </>
             ) : (
               <Link
@@ -174,13 +188,28 @@ const Navbar = () => {
                 <span className="text-gray-800 dark:text-white">
                   {user?.name}
                 </span>
-                <Image
-                  src={user?.image || "/fallback-avatar.png"}
-                  alt="Profile"
-                  className="w-8 h-8 rounded-full object-cover"
-                  width={32}
-                  height={32}
-                />
+
+                {user?.role === "admin" ? (
+                  <Link href={"/admin/myProfile"} passHref>
+                    <Image
+                      src={user?.image || profile.src}
+                      alt="Profile"
+                      className="w-12 h-12 rounded-full object-cover"
+                      width={32}
+                      height={32}
+                    />
+                  </Link>
+                ) : (
+                  <Link href={"/dashboard/userInfo"} passHref>
+                    <Image
+                      src={user?.image || profile.src}
+                      alt="Profile"
+                      className="w-12 h-12 rounded-full object-cover"
+                      width={32}
+                      height={32}
+                    />
+                  </Link>
+                )}
               </div>
             ) : (
               <Link

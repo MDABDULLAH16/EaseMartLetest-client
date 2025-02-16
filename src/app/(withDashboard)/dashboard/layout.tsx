@@ -7,7 +7,7 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Start collapsed on mobile
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Start collapsed on mobile
 
   return (
     <div className="min-h-screen flex">

@@ -66,7 +66,7 @@ const UserSidebar = () => {
           </Link>
         </li>
         <li>
-          <Link href="/admin/productManagement">
+          <Link href="/dashboard/order">
             <IoCartOutline className="text-xl" />
            My Orders
           </Link>

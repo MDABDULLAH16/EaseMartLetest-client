@@ -14,7 +14,7 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <section className="bg-blue-50 dark:bg-slate-800 py-16" id="contact">
+    <section className="bg-blue-50  dark:bg-slate-800 py-16" id="contact">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           {/* <p className="text-base font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-200">Contact</p> */}

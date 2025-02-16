@@ -14,7 +14,7 @@ const LatestProductsPage = async () => {
     // Sort products by latest first (non-mutating)
     const latestProducts = products.sort(
        (a: TProduct, b: TProduct) =>
-         new Date(b.createdAt).getTime() - new Date(a.createdAt ).getTime()
+         new Date(b.createdAt ?? 0).getTime() - new Date(a.createdAt ?? 0).getTime()
      );
 
     // console.log("Sorted Products:", latestProducts);
