@@ -136,7 +136,7 @@ const OrderDetailsContainer = () => {
             </thead>
             <tbody>
               {products.map((product) => (
-                <UserOrderCard key={product._id} orders={ orders}  product={product} />
+                <UserOrderCard key={product.data._id} orders={ orders}  product={product} />
               ))}
             </tbody>
           </table>

@@ -3,39 +3,16 @@ import { useState } from "react";
 import Image from "next/image";
 import { TProduct } from "@/types/TProducts";
 import { useAppDispatch } from "@/redux/hooks";
+import { addToCart } from "@/redux/features/cartSlice";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "@/redux/features/userDetailsSlice";
-import { toast } from "react-toastify";
-import { addToCart } from "@/redux/features/cartSlice";
+import Link from "next/link";
+
 
 const LatestProductCard = ({ products }: { products: TProduct[] }) => {
   //handle add to cart
   const dispatch = useAppDispatch();
   const user = useSelector(selectUserInfo);
-
-  // Handle adding product to cart
-  const handleAddToCart = () => {
-    if (products.some(product => !product._id)) {
-      toast.error("Product ID is missing!");
-      return;
-    }
-
-    if (products.some(product => product.stockQuantity && product.stockQuantity < 1)) {
-      toast.error("Out of stock!");
-      return;
-    }
-
-    if (!user?._id) {
-      toast.error("Please log in to add products to your cart.");
-      return;
-    }
-
-    // Dispatch the addToCart action with the product and userId
-    products.forEach(product => {
-      dispatch(addToCart({ product, userId: user._id }));
-    });
-  };
-
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
 
@@ -55,6 +32,7 @@ const LatestProductCard = ({ products }: { products: TProduct[] }) => {
             className="max-w-sm w-full bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-transform transform hover:-translate-y-2"
           >
             <div className="relative w-full h-56">
+              <Link href={`/product/${product._id}`}>
               <Image
                 src={
                   product.image ||
@@ -64,7 +42,7 @@ const LatestProductCard = ({ products }: { products: TProduct[] }) => {
                 layout="fill"
                 objectFit="cover"
                 className="rounded-t-2xl"
-              />
+              /></Link>
               <div className="absolute top-4 right-4 bg-gray-100 text-xs font-bold px-3 py-2 rounded-full shadow-md">
                 NEW
               </div>
@@ -76,7 +54,11 @@ const LatestProductCard = ({ products }: { products: TProduct[] }) => {
                 <span className="text-lg font-semibold text-indigo-600">${product.price.toFixed(2)}</span>
               </div>
               <button
-              onClick={handleAddToCart}  className="mt-4 w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition duration-300">
+              onClick={() => {
+                if (user) {
+                  dispatch(addToCart({ product, userId: user._id as string }));
+                }
+              }} className="mt-4 w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition duration-300">
                 Add to Cart
               </button>
             </div>

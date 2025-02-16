@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
-import MyInfoUpdateForm from "@/components/MyinfoUpdateForm";
 
+import MyInfoUpdateForm from "@/components/MyinfoUpdateForm";
 import { TUser } from "@/types/TUser";
 
 const UserUpdatePage = async ({ params }: any) => {
   const url = process.env.BACKEND_URL;
+  const { myInfo } = await params; // ✅ Await params properly
 
   // Fetch user data from the backend
-  const res = await fetch(`${url}/auth/${params.myInfo}`, {
+  const res = await fetch(`${url}/auth/${myInfo}`, {
     cache: "no-cache", // Disable caching for fresh data
   });
 
@@ -17,13 +18,10 @@ const UserUpdatePage = async ({ params }: any) => {
   }
 
   const data = await res.json();
-  // console.log("API Response Data:", data);
-
   const user: TUser = data?.data;
 
   return (
     <div>
-      {/* <UpdateUserForm key={user._id} user={user} /> */}
       <MyInfoUpdateForm key={user._id} user={user} />
     </div>
   );

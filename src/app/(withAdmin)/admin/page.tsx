@@ -16,8 +16,8 @@ const AdminDashboardPage = () => {
   const totalPayment = orders
     .filter((order) => order.totalPrice)
     .reduce((acc, order) => acc + order.totalPrice, 0);
-  console.log("Orders:", orders);
-  console.log("Products:", products);
+  // console.log("Orders:", orders);
+  // console.log("Products:", products);
 
   useEffect(() => {
     const fetchOrdersAndProducts = async () => {
@@ -137,7 +137,7 @@ const AdminDashboardPage = () => {
             </thead>
             <tbody>
               {products.map((product) => (
-                <UserOrderCard key={product._id} orders={ orders}  product={product} />
+                <UserOrderCard key={product.data._id} orders={ orders}  product={product} />
               ))}
             </tbody>
           </table>

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 import UserOrderCard from "@/components/ui/UserOrderCard";
 import { selectUserInfo } from "@/redux/features/userDetailsSlice";
@@ -10,11 +10,12 @@ import { toast } from "react-toastify";
 const OrderListPage = () => {
   const user = useAppSelector(selectUserInfo);
   const [orders, setOrders] = useState<TOrder[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  console.log("Orders:", orders);
-  console.log("Products:", products);
+  // console.log("Orders:", orders);
+  // console.log("Products:", products);
 
   useEffect(() => {
     const fetchOrdersAndProducts = async () => {
@@ -86,7 +87,7 @@ const OrderListPage = () => {
             </thead>
             <tbody>
               {products.map((product) => (
-                <UserOrderCard key={product._id} orders={ orders}  product={product} />
+                <UserOrderCard key={product.data._id} orders={ orders}  product={product} />
               ))}
             </tbody>
           </table>
