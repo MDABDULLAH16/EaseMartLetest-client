@@ -35,7 +35,7 @@ const UserOrderCard = ({
   const totalPrice = totalQuantity * product.data.price;
 
   return (
-    <tr className="border-b border-gray-200 hover:bg-gray-50 transition duration-200">
+    <tr className="border-b text-center border-gray-200 hover:bg-gray-50 transition duration-200">
       {/* Product Image */}
       <td className="p-4">
         <div className="relative w-20 h-20">
@@ -52,7 +52,7 @@ const UserOrderCard = ({
       </td>
 
       {/* Product Details */}
-      <td className="p-4 font-medium text-gray-800">{product.data.name}</td>
+      <td title={product?.data.name} className="p-4 font-medium text-gray-800">{product?.data?.name.length> 25? product.data.name.slice(0,25)+'..': product?.data?.name}</td>
       <td className="p-4 font-medium text-gray-800">{paymentStatus}</td>
       <td className="p-4 font-medium text-gray-800">{totalQuantity}</td>
       <td className="p-4 font-semibold text-blue-600">

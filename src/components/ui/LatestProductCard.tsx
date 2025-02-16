@@ -2,8 +2,40 @@
 import { useState } from "react";
 import Image from "next/image";
 import { TProduct } from "@/types/TProducts";
+import { useAppDispatch } from "@/redux/hooks";
+import { useSelector } from "react-redux";
+import { selectUserInfo } from "@/redux/features/userDetailsSlice";
+import { toast } from "react-toastify";
+import { addToCart } from "@/redux/features/cartSlice";
 
 const LatestProductCard = ({ products }: { products: TProduct[] }) => {
+  //handle add to cart
+  const dispatch = useAppDispatch();
+  const user = useSelector(selectUserInfo);
+
+  // Handle adding product to cart
+  const handleAddToCart = () => {
+    if (products.some(product => !product._id)) {
+      toast.error("Product ID is missing!");
+      return;
+    }
+
+    if (products.some(product => product.stockQuantity && product.stockQuantity < 1)) {
+      toast.error("Out of stock!");
+      return;
+    }
+
+    if (!user?._id) {
+      toast.error("Please log in to add products to your cart.");
+      return;
+    }
+
+    // Dispatch the addToCart action with the product and userId
+    products.forEach(product => {
+      dispatch(addToCart({ product, userId: user._id }));
+    });
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
 
@@ -43,7 +75,8 @@ const LatestProductCard = ({ products }: { products: TProduct[] }) => {
               <div className="flex items-center justify-between">
                 <span className="text-lg font-semibold text-indigo-600">${product.price.toFixed(2)}</span>
               </div>
-              <button className="mt-4 w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition duration-300">
+              <button
+              onClick={handleAddToCart}  className="mt-4 w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition duration-300">
                 Add to Cart
               </button>
             </div>

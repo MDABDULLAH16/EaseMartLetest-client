@@ -1,90 +1,150 @@
+"use client";
+import UserOrderCard from "@/components/ui/UserOrderCard";
+import { selectUserInfo } from "@/redux/features/userDetailsSlice";
+import { useAppSelector } from "@/redux/hooks";
+import { TOrder } from "@/types/TOrder";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 
-const AdminDashboardPage =  () => {
+const AdminDashboardPage = () => {
+  const user = useAppSelector(selectUserInfo) as { email: string } | null;
+  const [orders, setOrders] = useState<TOrder[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const totalPayment = orders
+    .filter((order) => order.totalPrice)
+    .reduce((acc, order) => acc + order.totalPrice, 0);
+  console.log("Orders:", orders);
+  console.log("Products:", products);
+
+  useEffect(() => {
+    const fetchOrdersAndProducts = async () => {
+      try {
+        // Fetch orders
+        const res = await fetch(
+          `${process.env.BACKEND_URL}/orders`,
+          {
+            cache: "no-cache",
+          }
+        );
+        const allOrders = await res.json();
+        const ordersData = allOrders?.data || [];
+        setOrders(ordersData);
+
+        // Extract product IDs from orders
+        const productsId: string[] = ordersData.flatMap(
+          (order: TOrder) => order.products?.map((p) => p.product) || []
+        );
+
+        if (productsId.length === 0) {
+          setLoading(false);
+          return;
+        }
+
+        // Fetch products (removing duplicates to optimize requests)
+        const uniqueProductIds = [...new Set(productsId)];
+        const fetchedProducts = await Promise.all(
+          uniqueProductIds.map(async (productId: string) => {
+            try {
+              const res = await fetch(
+                `${process.env.BACKEND_URL}/products/${productId}`,
+                {
+                  cache: "no-cache",
+                }
+              );
+              return res.json();
+            } catch (error) {
+              toast.error(`Error fetching product ${productId}: ${error}`);
+              return null;
+            }
+          })
+        );
+
+        // Filter out null values
+        setProducts(fetchedProducts.filter((p) => p !== null));
+        setLoading(false);
+      } catch (error) {
+        toast.error(`Error fetching orders: ${error}`);
+        setLoading(false);
+      }
+    };
+
+    fetchOrdersAndProducts();
+  }, [user?.email]); // Only run when user email changes
+
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-           <div className="bg-gray-200 min-h-screen">
-          {/* Responsive Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 sm:p-6 md:p-8">
-            {/* Card 1: Revenue */}
-            <div className="relative p-4 sm:p-6 rounded-2xl bg-white shadow dark:bg-gray-800">
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-                  <span>Revenue</span>
-                </div>
-                <div className="text-2xl sm:text-3xl dark:text-gray-100">$192.1k</div>
-                <div className="flex items-center space-x-1 text-sm font-medium text-green-600">
-                  <span>32k increase</span>
-                  <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-    
-            {/* Card 2: New Customers */}
-            <div className="relative p-4 sm:p-6 rounded-2xl bg-white shadow dark:bg-gray-800">
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-                  <span>New customers</span>
-                </div>
-                <div className="text-2xl sm:text-3xl dark:text-gray-100">1340</div>
-                <div className="flex items-center space-x-1 text-sm font-medium text-red-600">
-                  <span>3% decrease</span>
-                  <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 13a1 1 0 100 2h5a1 1 0 001-1V9a1 1 0 10-2 0v2.586l-4.293-4.293a1 1 0 00-1.414 0L8 9.586 3.707 5.293a1 1 0 00-1.414 1.414l5 5a1 1 0 001.414 0L11 9.414 14.586 13H12z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-    
-            {/* Card 3: New Orders */}
-            <div className="relative p-4 sm:p-6 rounded-2xl bg-white shadow dark:bg-gray-800">
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-                  <span>New orders</span>
-                </div>
-                <div className="text-2xl sm:text-3xl dark:text-gray-100">3543</div>
-                <div className="flex items-center space-x-1 text-sm font-medium text-green-600">
-                  <span>7% increase</span>
-                  <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
+      <div>
+             <div className="bg-gray-200 text-center ">
+    {/* Responsive Grid */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 sm:p-6 md:p-8">
+      {/* Card 1: Revenue */}
+      <div className="relative p-4 sm:p-6 rounded-2xl bg-white shadow dark:bg-gray-800">
+        <div className="space-y-2 text-center">
+          <div className="text-2xl sm:text-3xl dark:text-gray-100">
+            Total Order
+          </div>
+          <div className="flex items-center space-x-1 justify-center text-sm font-medium text-green-600">
+            <span className="text-3xl font-semibold">{orders.length}</span>
           </div>
         </div>
-    
+      </div>
+  
+      {/* Card 2: New Customers */}
+      <div className="relative p-4 sm:p-6 rounded-2xl bg-white shadow dark:bg-gray-800">
+        <div className="space-y-2 text-center">
+          <div className="text-2xl sm:text-3xl dark:text-gray-100">
+            Total Product
+          </div>
+          <div className="flex items-center space-x-1 justify-center text-sm font-medium text-red-600">
+            <span className="text-3xl font-semibold">{products.length}</span>
+          </div>
+        </div>
+      </div>
+  
+      {/* Card 3: New Orders */}
+      <div className="relative p-4 sm:p-6 rounded-2xl bg-white shadow dark:bg-gray-800">
+        <div className="space-y-2 text-center">
+          <div className="text-2xl sm:text-3xl dark:text-gray-100">
+            Total Payment
+          </div>
+          <div className="flex items-center space-x-1 justify-center text-sm font-medium text-green-600">
+            <span className="text-3xl font-semibold">{totalPayment.toFixed(2)}</span>
+          </div>
+        </div>
+      </div>
     </div>
+          </div>
+          {/* ordered product */}
+          <div>
+      {loading ? (
+        <p className="text-center text-gray-500">Loading orders...</p>
+      ) : (
+          <div className="overflow-x-auto">
+            <h1 className=" text-4xl font-bold text-center p-4">All User Orders</h1>
+          <table className="w-full border-collapse border border-gray-300">
+              <thead>
+                
+              <tr className="bg-gray-200">
+                <th className="border border-gray-300 p-2">Image</th>
+                <th className="border border-gray-300 p-2">Name</th>
+                {/* <th className="border border-gray-300 p-2">Address</th> */}
+                <th className="border border-gray-300 p-2">Payment Status</th>
+                <th className="border border-gray-300 p-2">Quantity</th>
+                <th className="border border-gray-300 p-2">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <UserOrderCard key={product._id} orders={ orders}  product={product} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+ </div>
   );
 };
 

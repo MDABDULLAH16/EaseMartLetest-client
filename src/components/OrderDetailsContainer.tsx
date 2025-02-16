@@ -109,7 +109,7 @@ const OrderDetailsContainer = () => {
             Total Payment
           </div>
           <div className="flex items-center space-x-1 justify-center text-sm font-medium text-green-600">
-            <span className="text-3xl font-semibold">{totalPayment}</span>
+            <span className="text-3xl font-semibold">{totalPayment.toFixed(2)}</span>
           </div>
         </div>
       </div>
