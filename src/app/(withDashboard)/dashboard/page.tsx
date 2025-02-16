@@ -1,3 +1,4 @@
+import OrderDetailsContainer from "@/components/OrderDetailsContainer";
 
 
 
@@ -5,7 +6,7 @@ const DashboardPage = () => {
   
   return (
     <div>
-      <h1>this is user dashboard</h1>
+  <OrderDetailsContainer/>
     </div>
   );
 };

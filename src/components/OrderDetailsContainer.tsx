@@ -1,18 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import UserOrderCard from "@/components/ui/UserOrderCard";
 import { selectUserInfo } from "@/redux/features/userDetailsSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { TOrder } from "@/types/TOrder";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import UserOrderCard from "./ui/UserOrderCard";
 
-const OrderListPage = () => {
-  const user = useAppSelector(selectUserInfo);
+const OrderDetailsContainer = () => {
+  const user = useAppSelector(selectUserInfo) as { email: string } | null;
   const [orders, setOrders] = useState<TOrder[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const totalPayment = orders
+    .filter((order) => order.totalPrice)
+    .reduce((acc, order) => acc + order.totalPrice, 0);
   console.log("Orders:", orders);
   console.log("Products:", products);
 
@@ -20,16 +22,19 @@ const OrderListPage = () => {
     const fetchOrdersAndProducts = async () => {
       try {
         // Fetch orders
-        const res = await fetch(`${process.env.BACKEND_URL}/orders/${user?.email}`, {
-          cache: "no-cache",
-        });
+        const res = await fetch(
+          `${process.env.BACKEND_URL}/orders/${user?.email}`,
+          {
+            cache: "no-cache",
+          }
+        );
         const allOrders = await res.json();
         const ordersData = allOrders?.data || [];
         setOrders(ordersData);
 
         // Extract product IDs from orders
-        const productsId: string[] = ordersData.flatMap((order: TOrder) =>
-          order.products?.map((p) => p.product) || []
+        const productsId: string[] = ordersData.flatMap(
+          (order: TOrder) => order.products?.map((p) => p.product) || []
         );
 
         if (productsId.length === 0) {
@@ -42,9 +47,12 @@ const OrderListPage = () => {
         const fetchedProducts = await Promise.all(
           uniqueProductIds.map(async (productId: string) => {
             try {
-              const res = await fetch(`${process.env.BACKEND_URL}/products/${productId}`, {
-                cache: "no-cache",
-              });
+              const res = await fetch(
+                `${process.env.BACKEND_URL}/products/${productId}`,
+                {
+                  cache: "no-cache",
+                }
+              );
               return res.json();
             } catch (error) {
               toast.error(`Error fetching product ${productId}: ${error}`);
@@ -66,7 +74,49 @@ const OrderListPage = () => {
   }, [user?.email]); // Only run when user email changes
 
   return (
-    <div>
+      <div>
+             <div className="bg-gray-200 text-center ">
+    {/* Responsive Grid */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 sm:p-6 md:p-8">
+      {/* Card 1: Revenue */}
+      <div className="relative p-4 sm:p-6 rounded-2xl bg-white shadow dark:bg-gray-800">
+        <div className="space-y-2 text-center">
+          <div className="text-2xl sm:text-3xl dark:text-gray-100">
+            Total Order
+          </div>
+          <div className="flex items-center space-x-1 justify-center text-sm font-medium text-green-600">
+            <span className="text-3xl font-semibold">{orders.length}</span>
+          </div>
+        </div>
+      </div>
+  
+      {/* Card 2: New Customers */}
+      <div className="relative p-4 sm:p-6 rounded-2xl bg-white shadow dark:bg-gray-800">
+        <div className="space-y-2 text-center">
+          <div className="text-2xl sm:text-3xl dark:text-gray-100">
+            Total Product
+          </div>
+          <div className="flex items-center space-x-1 justify-center text-sm font-medium text-red-600">
+            <span className="text-3xl font-semibold">{products.length}</span>
+          </div>
+        </div>
+      </div>
+  
+      {/* Card 3: New Orders */}
+      <div className="relative p-4 sm:p-6 rounded-2xl bg-white shadow dark:bg-gray-800">
+        <div className="space-y-2 text-center">
+          <div className="text-2xl sm:text-3xl dark:text-gray-100">
+            Total Payment
+          </div>
+          <div className="flex items-center space-x-1 justify-center text-sm font-medium text-green-600">
+            <span className="text-3xl font-semibold">{totalPayment}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+          </div>
+          {/* ordered product */}
+          <div>
       {loading ? (
         <p className="text-center text-gray-500">Loading orders...</p>
       ) : (
@@ -93,7 +143,8 @@ const OrderListPage = () => {
         </div>
       )}
     </div>
+ </div>
   );
 };
 
-export default OrderListPage;
+export default OrderDetailsContainer;
