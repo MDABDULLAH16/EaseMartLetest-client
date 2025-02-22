@@ -5,8 +5,8 @@ EaseMart is a full-featured eCommerce platform built with modern web technologie
 
 ## 🚀 Live Demo
 🔗 [Live Site](https://easemartletestv2.vercel.app/)
-🔗 [Client Repository](#)
-🔗 [Server Repository](#)
+🔗 [Client Repository](https://github.com/MDABDULLAH16/EaseMartLetest-client)
+🔗 [Server Repository](https://github.com/MDABDULLAH16/easeMartServer)
 
 ## 🛠 Technologies Used
 - **Frontend**: Next.js, React, Tailwind CSS
@@ -28,7 +28,6 @@ EaseMart is a full-featured eCommerce platform built with modern web technologie
 ### 🔹 Prerequisites
 - Node.js & npm installed
 - MongoDB running locally or cloud instance
-- Firebase project for authentication
 - AmmarPay API credentials
 
 ### 🔹 Steps to Run
@@ -41,7 +40,6 @@ npm install
 
 # Create a .env file and configure the following variables:
 MONGO_URI=your_mongodb_url
-FIREBASE_CONFIG=your_firebase_config
 AMMARPAY_API_KEY=your_api_key
 PORT=5000
 
@@ -76,4 +74,4 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ---
 ### 📧 Contact
-For any inquiries, reach out at **your_email@example.com**
+For any inquiries, reach out at **mdabdullah161036@gmail.com**
