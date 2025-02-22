@@ -1,38 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EaseMart - E-Commerce Platform
 
-## Getting Started
+## 🛒 Overview
+EaseMart is a full-featured eCommerce platform built with modern web technologies. It allows users to browse products, add items to their shopping cart, and complete transactions securely using AmmarPay. The platform also includes an admin dashboard for managing products, categories, and orders.
 
-## Admin: admin@programming-hero.com passs: ph-password
+## 🚀 Live Demo
+🔗 [Live Site](#)
+🔗 [Client Repository](#)
+🔗 [Server Repository](#)
 
-First, run the development server:
+## 🛠 Technologies Used
+- **Frontend**: Next.js, React, Tailwind CSS
+- **Backend**: Node.js, Express.js, MongoDB
+- **Authentication**: NextAuth.js
+- **Payments**: AmmarPay
+- **State Management**: Redux
 
+## 🔑 Features
+- Product listing and categorization
+- Shopping cart functionality
+- User authentication and role management
+- Admin dashboard for product and order management
+- Secure online payments with AmmarPay
+- Dynamic product search with a modal interface
+- Responsive dark mode design
+
+## 📌 Installation & Setup
+### 🔹 Prerequisites
+- Node.js & npm installed
+- MongoDB running locally or cloud instance
+- Firebase project for authentication
+- AmmarPay API credentials
+
+### 🔹 Steps to Run
+#### Backend Setup
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the server repository
+git clone <server-repo-url>
+cd server
+npm install
+
+# Create a .env file and configure the following variables:
+MONGO_URI=your_mongodb_url
+FIREBASE_CONFIG=your_firebase_config
+AMMARPAY_API_KEY=your_api_key
+PORT=5000
+
+# Start the server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Frontend Setup
+```bash
+# Clone the client repository
+git clone <client-repo-url>
+cd client
+npm install
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Create a .env file and add:
+NEXT_PUBLIC_BACKEND_URL=http://localhost:5000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Start the development server
+npm run dev
+```
 
-## Learn More
+## 🎯 Usage
+- Users can browse and purchase products.
+- Admins can add, edit, and delete products and categories.
+- Secure checkout with AmmarPay integration.
 
-To learn more about Next.js, take a look at the following resources:
+## 📄 License
+This project is open-source and available under the MIT License.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🤝 Contributing
+Pull requests are welcome! For major changes, please open an issue first to discuss.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+### 📧 Contact
+For any inquiries, reach out at **your_email@example.com**
