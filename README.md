@@ -4,7 +4,7 @@
 EaseMart is a full-featured eCommerce platform built with modern web technologies. It allows users to browse products, add items to their shopping cart, and complete transactions securely using AmmarPay. The platform also includes an admin dashboard for managing products, categories, and orders.
 
 ## 🚀 Live Demo
-🔗 [Live Site](#)
+🔗 [Live Site](https://easemartletestv2.vercel.app/)
 🔗 [Client Repository](#)
 🔗 [Server Repository](#)
 
