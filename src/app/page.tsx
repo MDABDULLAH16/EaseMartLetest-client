@@ -8,7 +8,7 @@ import LatestProductsPage from "./LatestProduct/page";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="">
       {/* <h1 className="text-4xl text-center mt-10">Welcome To Home Page</h1> */}
       {/* <Banner></Banner> */}
       <CategoryPage />

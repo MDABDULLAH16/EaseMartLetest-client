@@ -9,7 +9,7 @@ const CategoryTable = ({ category }: { category: TCategory }) => {
       {category ? (
         <>
           {/* Image */}
-          <div className="relative w-full h-48 bg-gray-200 rounded-lg overflow-hidden">
+          <div className="relative w-full h-48 sm:h-24 bg-gray-200 rounded-lg overflow-hidden">
             {category.image ? (
               <Image
                 src={category.image}
@@ -29,8 +29,8 @@ const CategoryTable = ({ category }: { category: TCategory }) => {
             <h3 className="text-xl font-bold text-gray-800">
               {category.name || "Unnamed Category"}
             </h3>
-            <p className="text-gray-600">
-              {category.description || "No description available."}
+            <p title={category.description} className="text-gray-600">
+              {category.description ? (category.description.length > 40 ? category.description.slice(0, 40) + '...' : category.description) : "No description available."}
             </p>
           </div>
           {/* Actions */}

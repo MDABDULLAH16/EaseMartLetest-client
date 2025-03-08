@@ -6,7 +6,7 @@ import TitleSection from "@/components/shared/TitleWithHelmet";
 
 const CategoryPage = ({ categories }: { categories: TCategory[] }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 8; // Number of categories per page
+  const itemsPerPage = 16; // Number of categories per page
   const totalPages = Math.ceil(categories.length / itemsPerPage);
 
   // Calculate the start and end index for the current page
@@ -31,7 +31,7 @@ const CategoryPage = ({ categories }: { categories: TCategory[] }) => {
   };
 
   return (
-    <div className=" max-w-7xl mb-4 mx-auto">
+    <div className=" max-w-7xl  mx-auto">
       <div className="flex justify-center">
         <TitleSection optional={"Categories"} />
       </div>
@@ -68,7 +68,7 @@ const CategoryPage = ({ categories }: { categories: TCategory[] }) => {
           </div>
 
           {/* Categories Grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 pb-4  mb-4 gap-6 mt-8 overflow-hidden transition-transform duration-300">
+          <div className="grid grid-cols-4  sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-8 pb-4  mb-4 gap-6 mt-8 overflow-hidden transition-transform duration-300">
             {currentCategories.map((category: TCategory) => (
               <CategoryCardForUser key={category._id} category={category} />
             ))}

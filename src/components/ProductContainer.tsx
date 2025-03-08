@@ -18,7 +18,7 @@ const ProductContainer = ({
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("default");
-  const itemsPerPage = 8;
+  const itemsPerPage = 12;
 
   // Map category IDs to names for filtering
   const categoryMap = new Map(categories.map((cat) => [cat._id, cat.name]));
@@ -166,7 +166,7 @@ const ProductContainer = ({
           </table>
         </div>
       ) : (
-        <div className="grid mx-auto grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid mx-auto grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-6">
           {paginatedProducts.length > 0 ? (
             paginatedProducts.map((product) => (
               <ProductCard key={product._id} product={product} />

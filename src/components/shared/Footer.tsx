@@ -4,7 +4,7 @@ import React from "react";
 import logo from "../../assets/EaseMart.png";
 const Footer = () => {
   return (
-    <footer className=" pl-12 bg-gray-100 text-black">
+    <footer className=" pl-12 bg-gray-200 text-black">
       <div className="container w-full mx-auto px-6 py-10 grid gap-8 grid-cols-1 md:grid-cols-3 text-center md:text-left">
         {/* Logo and description */}
         <div>

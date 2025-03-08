@@ -8,8 +8,8 @@ const CategoryCardForUser = ({ category }: { category: TCategory }) => {
       href={`/product?category=${encodeURIComponent(category.name)}`}
       passHref
     >
-      <div className="group cursor-pointer rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow bg-white p-4 flex flex-col items-center border border-gray-200 sm:p-6 md:p-8 lg:p-10">
-        <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full overflow-hidden border-4 border-gray-300">
+      <div className="group cursor-pointer rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow bg-white flex pt-4 pb-2 flex-col items-center border border-gray-200  ">
+        <div className="relative w-16 h-16 md:w-20 md:h-20 lg:w-20 lg:h-20  overflow-hidden rounded-full border border-gray-300">
           <Image
             src={
               category.image ||
@@ -21,12 +21,10 @@ const CategoryCardForUser = ({ category }: { category: TCategory }) => {
             className="group-hover:scale-110 transition-transform duration-300"
           />
         </div>
-        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-gray-800 text-center mt-4">
+        <h2 className="text-base sm:text-lg md:text-xl lg:text-sm font-semibold text-gray-800 text-center pt-1 ">
           {category.name}
         </h2>
-        <p className="text-xs sm:text-sm md:text-base text-gray-500 text-center mt-1">
-          Explore the best deals
-        </p>
+      
       </div>
     </Link>
   );

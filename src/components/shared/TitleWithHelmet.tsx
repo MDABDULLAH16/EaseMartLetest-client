@@ -8,7 +8,7 @@ const TitleSection = ({ title, header, optional }: any) => {
         <title>{`EaseMart | ${title}`}</title>
       </Head>
       <div className="text-center font-semibold text-4xl" >
-        <h1 className="py-6">
+        <h1 className="pt-4">
           {header} <span className=" text-4xl">{optional}</span>
         </h1>
       </div>

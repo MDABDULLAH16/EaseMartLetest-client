@@ -137,7 +137,7 @@ const LoginPage = () => {
             <p className="mb-2 text-gray-600">Or Sign In Using</p>
             <div className="flex justify-center space-x-4">
               <button
-                onClick={() => signIn("google", { callbackUrl: "/about" })}
+                onClick={() => signIn("google", { callbackUrl: "/" })}
                 className="p-2 border rounded-full hover:shadow-lg"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
@@ -148,7 +148,7 @@ const LoginPage = () => {
 </svg>
               </button>
               <button
-                onClick={() => signIn("github", { callbackUrl: "/about" })}
+                onClick={() => signIn("github", { callbackUrl: "/login" })}
                 className="p-2 border rounded-full hover:shadow-lg"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
