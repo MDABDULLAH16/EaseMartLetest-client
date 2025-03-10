@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import profile from "../../assets/profile.png";
 import { RootState } from "@/redux/store";
+import { Moon, Sun } from "lucide-react";
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
@@ -118,7 +119,7 @@ const Navbar = () => {
               ""
             )}
              <button onClick={handleDarkMode}  className="text-black dark:text-white">
-           {darkMode ? '🌞' :'🌙'}
+           {darkMode ? <Sun></Sun> :<Moon/>}
         </button>
           </div>
 
@@ -200,6 +201,7 @@ const Navbar = () => {
             <Link href="/contact" className="nav-link block">
               Contact Us
             </Link>
+            <div className="flex flex-col space-y-4">
             {isClient && user?.role === "admin" ? (
               <Link href="/admin" className="nav-link">
                 Admin
@@ -213,7 +215,11 @@ const Navbar = () => {
                   Dashboard
                 </Link>
               </>
-            )}
+            )}<button onClick={handleDarkMode}  className="text-black dark:text-white">
+           {darkMode ? <Sun></Sun> :<Moon/>}
+        </button>
+            </div>
+            
             {isClient && user ? (
               <div className="flex items-start flex-col space-x-4">
                 <span className="text-gray-800 dark:text-white">
