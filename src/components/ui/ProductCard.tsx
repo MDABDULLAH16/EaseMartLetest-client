@@ -9,7 +9,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   // const handleAddToCart = () => {};
  
   return (
-    <div className=" max-w-sm mx-auto  w-full bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105">
+    <div className=" max-w-sm mx-auto dark:text-white  w-full bg-white dark:bg-[#383838] rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105">
       {/* Image Section */}
       <div className="relative  overflow-hidden  p-4 ">
         <Image
@@ -30,7 +30,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
 
       {/* Content Section */}
       <div className=" p-2 flex flex-col">
-        <h3 className="  text-gray-800 truncate">
+        <h3 className=" dark:text-white text-gray-800 truncate">
           {product.name}
         </h3>
        

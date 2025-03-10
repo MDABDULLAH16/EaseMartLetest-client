@@ -10,10 +10,8 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import DeleteProductButton from "./DeleteProduct";
 import ReviewForm from "../ReviewForm";
-// import ReviewCardPDetails from "./ReviewCardPDetails";
-import { TReview } from "@/types/TReviews";
 import ReviewCardPDetails from "./ReviewCardPDetails";
-// import ProductReviewPage from "../ProductReview";
+import { TReview } from "@/types/TReviews";
 
 const ProductDetailsCard = ({
   product,
@@ -25,7 +23,6 @@ const ProductDetailsCard = ({
   const dispatch = useAppDispatch();
   const user = useSelector(selectUserInfo);
 
-  // Handle adding product to cart
   const handleAddToCart = () => {
     if (!product._id) {
       toast.error("Product ID is missing!");
@@ -42,14 +39,12 @@ const ProductDetailsCard = ({
       return;
     }
 
-    // Dispatch the addToCart action with the product and userId
     dispatch(addToCart({ product, userId: user._id }));
   };
 
   return (
-    <div className="max-w-full mx-auto m-4 p-4 bg-gray-50 rounded-lg shadow-md">
+    <div className="max-w-full mx-auto m-4 p-4 bg-gray-50 dark:bg-[#383838] dark:text-white rounded-lg shadow-md">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Product Image */}
         <div className="flex justify-center">
           <Image
             width={500}
@@ -62,27 +57,22 @@ const ProductDetailsCard = ({
             className="rounded-lg shadow-lg max-h-96 w-full object-cover"
           />
         </div>
-        {/* Product Details */}
         <div className="flex flex-col justify-center">
-          <h1 title={ product.name} className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 title={product.name} className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             {product.name.length > 30 ? product.name.slice(0, 30) + "..." : product.name}
           </h1>
-          <p className="text-xl font-semibold text-gray-700 mb-4">
-            ${product.price}
+          <p className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
+          ৳ {product.price}
           </p>
-          <p className="text-sm text-gray-600 mb-2">
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
             Available Stock:{" "}
             <span className="font-medium">{product.stockQuantity}</span>
           </p>
-          {/* <p className="text-sm text-gray-600 mb-2">
-            Category: <span className="font-medium">{}</span>
-          </p> */}
-          <p className="text-gray-700 text-md mt-4">
+          <p className="text-gray-700 dark:text-gray-300 text-md mt-4">
             {product.description.length > 520
               ? product.description.slice(0, 520) + "..."
               : product.description}
           </p>
-          {/* Admin Actions or Add to Cart Button */}
           {user?.role === "admin" ? (
             <div className="flex flex-col text-center">
               {product._id && (
@@ -109,16 +99,14 @@ const ProductDetailsCard = ({
         </div>
       </div>
       <div className="mt-10 space-y-2">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
           Ratings and Reviews of {product.name}
         </h2>
-        {/* ReviewsMapping */}
         <div className="space-y-2">
           {reviews.map((review) => (
             <ReviewCardPDetails reviews={review} key={review.description} />
           ))}
         </div>
-        {/* <ReviewCardPDetails reviews={reviews} /> */}
         <div className="py-4">
           <ReviewForm key={product._id} productId={product._id} />
         </div>

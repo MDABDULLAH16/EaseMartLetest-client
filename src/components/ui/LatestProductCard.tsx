@@ -29,7 +29,7 @@ const LatestProductCard = ({ products }: { products: TProduct[] }) => {
         {currentProducts.map((product) => (
           <div
             key={product._id}
-            className="max-w-sm w-full bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-transform transform hover:-translate-y-2"
+            className="max-w-sm w-full dark:bg-[#383838] bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-transform transform hover:-translate-y-2"
           >
             <div className="relative w-full h-56">
               <Link href={`/product/${product._id}`}>
@@ -41,18 +41,19 @@ const LatestProductCard = ({ products }: { products: TProduct[] }) => {
                 alt={product.name}
                 layout="fill"
                 objectFit="cover"
-                className="rounded-t-2xl"
+                className="rounded-t-2xl p-2 rounded-sm"
               /></Link>
-              <div className="absolute top-4 right-4 bg-gray-100 text-xs font-bold px-3 py-2 rounded-full shadow-md">
+              <div className="absolute top-4 right-4 dark:bg-[#383838] bg-gray-100 text-xs font-bold px-3 py-2 rounded-full shadow-md">
                 NEW
               </div>
             </div>
             <div className="p-4 pt-2">
-              <h3 className="text-xl font-bold text-gray-800 truncate">{product.name}</h3>
-              <p className="text-gray-600 text-sm line-clamp-2">{product.description}</p>
+              <Link href={`/product/${product._id}`}>
+              <h3 className=" font-bold dark:text-white text-gray-800 truncate">{product.name}</h3>
+            
               <div className="flex items-center justify-between">
-                <span className="text-lg font-semibold text-indigo-600">${product.price.toFixed(2)}</span>
-              </div>
+                <span className="font-semibold text-white"> ৳ {product.price.toFixed(2)}</span>
+              </div></Link>
               <button
               onClick={() => {
                 if (user) {
@@ -71,17 +72,17 @@ const LatestProductCard = ({ products }: { products: TProduct[] }) => {
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
-          className="px-4 py-2 bg-blue-200 text-blue-700 rounded-md hover:bg-blue-300 disabled:opacity-50"
+          className="px-4 py-2 dark:bg-[#383838] bg-white text-black dark:text-white rounded-md hover:bg-blue-300 disabled:opacity-50"
         >
           Prev
         </button>
-        <span className="font-semibold text-gray-700">
+        <span className="font-semibold   text-black dark:text-white ">
           Page {currentPage} of {totalPages}
         </span>
         <button
           onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-blue-200 text-blue-700 rounded-md hover:bg-blue-300 disabled:opacity-50"
+          className="px-4 py-2 dark:bg-[#383838] bg-white text-black dark:text-white  rounded-md hover:bg-blue-300 disabled:opacity-50"
         >
           Next
         </button>

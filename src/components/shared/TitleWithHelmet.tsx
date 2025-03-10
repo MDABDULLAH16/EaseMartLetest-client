@@ -3,7 +3,7 @@ import Head from "next/head";
 
 const TitleSection = ({ title, header, optional }: any) => {
   return (
-    <div className="py-4 pb-6">
+    <div className="py-4 ">
       <Head>
         <title>{`EaseMart | ${title}`}</title>
       </Head>

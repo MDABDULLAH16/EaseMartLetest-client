@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../assets/EaseMart.png";
+
+import logoDark from "../../assets/EaseMart-darkMode1.png";
 
 import { selectUserInfo } from "@/redux/features/userDetailsSlice";
 import { useSelector } from "react-redux";
@@ -10,6 +11,24 @@ import { useEffect, useState } from "react";
 import profile from "../../assets/profile.png";
 import { RootState } from "@/redux/store";
 const Navbar = () => {
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return JSON.parse(localStorage.getItem('darkMode') || 'false');
+    }
+    return false;
+  });
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode])
+  const handleDarkMode=()=>{
+    setDarkMode(!darkMode);
+  }
+  ////////////////////////////
   const [menuOpen, setMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false); // Track client-side rendering
   const user = useSelector(selectUserInfo);
@@ -36,25 +55,34 @@ const Navbar = () => {
   const item = cartItems.length;
 
   return (
-    <nav className="bg-white w-full shadow-md dark:bg-gray-900 overflow-hidden">
+    <nav  style={{ zIndex: 1000000 }}  className="bg-white dark:text-white sticky top-0 z-1000000 w-full shadow-md dark:bg-gray-900 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/">
+           {darkMode?  <Link href="/">
               <Image
-                src={logo.src || "/fallback-logo.png"}
+                src={logoDark.src || "/fallback-logo.png"}
                 alt="EaseMart"
-                width={50}
-                height={50}
-                className="w-20 h-16 rounded-full"
+                width={100}
+                height={100}
+                className="w-30 h-30  p-4 text-white"
                 priority
               />
-            </Link>
+            </Link>:  <Link href="/">
+              <Image
+                src={logoDark.src || "/fallback-logo.png"}
+                alt="EaseMart"
+                width={100}
+                height={100}
+                className="w-30 h-30  p-4 text-white"
+                priority
+              />
+            </Link>}
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-6">
+          <div className="hidden dark:text-white md:flex space-x-6">
             <Link href="/" className="nav-link">
               Home
             </Link>
@@ -89,6 +117,9 @@ const Navbar = () => {
             ) : (
               ""
             )}
+             <button onClick={handleDarkMode}  className="text-black dark:text-white">
+           {darkMode ? '🌞' :'🌙'}
+        </button>
           </div>
 
           {/* Mobile Menu Button */}

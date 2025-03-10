@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <Providers>
       <html lang="en" data-theme="light">
-        <body className="bg-gray-100" >
+        <body className="bg-slate-100 dark:bg-[#1B1B1B]  dark:text-white  text-black" >
           <AOSInitializer />
           <NavbarContainer />
           <div>
@@ -30,15 +30,13 @@ export default function RootLayout({
             <div className="min-h-screen  max-w-[95%] mx-auto overflow-hidden"> {children}</div>
           </div>
           <ToastContainer
-            position="top-center"
+            position="bottom-left"
             autoClose={1000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick={false}
-            rtl={false}
-            
-            draggable
-            
+            rtl={false}            
+            draggable            
             theme="light"
             transition={Bounce}
           />

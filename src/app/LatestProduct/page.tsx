@@ -30,7 +30,7 @@ const LatestProductsPage = async () => {
     return (
       <div>
         {/* <ProductContainer products={latestProducts} categories={categories} /> */}
-        <div className="my-12 mb-16 text-center"> 
+        <div className="my-6  text-center"> 
         <h1 className="font-bold text-4xl  ">Latest Product</h1>
         <p  >Check & Get Your Desired Product!</p>
         </div>

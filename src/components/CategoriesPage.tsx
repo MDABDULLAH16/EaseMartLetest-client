@@ -32,7 +32,7 @@ const CategoryPage = ({ categories }: { categories: TCategory[] }) => {
 
   return (
     <div className=" max-w-7xl  mx-auto">
-      <div className="flex justify-center">
+      <div className="flex  justify-center">
         <TitleSection optional={"Categories"} />
       </div>
       <div className="flex flex-col md:flex-row justify-between items-center mb-6">
@@ -46,7 +46,7 @@ const CategoryPage = ({ categories }: { categories: TCategory[] }) => {
             <button
               onClick={handlePrev}
               disabled={currentPage === 0}
-              className={`px-4 py-2  bg-blue-500 text-white rounded-md shadow-md ${
+              className={`px-4 py-2  bg-blue-500  dark:bg-[#383838]  text-white rounded-md shadow-md ${
                 currentPage === 0 ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
@@ -57,7 +57,7 @@ const CategoryPage = ({ categories }: { categories: TCategory[] }) => {
             <button
               onClick={handleNext}
               disabled={currentPage === totalPages - 1}
-              className={`px-4 py-2 bg-blue-500 text-white rounded-md shadow-md ${
+              className={`px-4 py-2 bg-blue-500 dark:bg-[#383838]   text-white rounded-md shadow-md ${
                 currentPage === totalPages - 1
                   ? "opacity-50 cursor-not-allowed"
                   : ""

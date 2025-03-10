@@ -74,9 +74,7 @@ const ProductContainer = ({
     setCurrentPage(1);
   };
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+ 
 
   // Ensure client-side rendering
   const [isClient, setIsClient] = useState(false);
@@ -103,12 +101,12 @@ const ProductContainer = ({
             placeholder="Search products..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full md:w-1/3 p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full dark:bg-[#383838] bg-white md:w-1/3 p-2   dark:text- rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
           />
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full md:w-1/4 p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full dark:bg-[#383838] bg-white md:w-1/4 p-2   rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
           >
             {uniqueCategories.map((category) => (
               <option key={category} value={category}>
@@ -119,7 +117,7 @@ const ProductContainer = ({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="w-full md:w-1/4 p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full dark:bg-[#383838] bg-white md:w-1/4 p-2  rounded-md shadow-sm focus:ring-2 focus:ring-blue-500   outline-none"
           >
             <option value="default">Default Price</option>
             <option value="priceHighToLow">Price High to Low</option>
@@ -180,23 +178,25 @@ const ProductContainer = ({
       )}
 
       {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-2 mt-4">
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-            (page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`px-4 py-2 border rounded-md ${
-                  currentPage === page
-                    ? "bg-blue-500 text-white"
-                    : "bg-white text-blue-500"
-                } hover:bg-blue-400 hover:text-white transition duration-200`}
-              >
-                {page}
-              </button>
-            )
-          )}
-        </div>
+        <div className="flex justify-center items-center mt-6 space-x-4">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className="px-4 py-2 dark:bg-[#383838] bg-white text-black dark:text-white rounded-md hover:bg-blue-300 disabled:opacity-50"
+        >
+          Prev
+        </button>
+        <span className="font-semibold   text-black dark:text-white ">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 dark:bg-[#383838] bg-white text-black dark:text-white  rounded-md hover:bg-blue-300 disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
       )}
     </div>
   );

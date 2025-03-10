@@ -6,7 +6,7 @@ import TitleSection from "../shared/TitleWithHelmet";
 
 const ServicesStat = () => {
   return (
-    <div className="w-full  py-12 mx-auto">
+    <div className="w-full   mx-auto">
       <div>
         <TitleSection
           header={"Our Awesome"}
