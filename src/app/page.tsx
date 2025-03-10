@@ -5,6 +5,7 @@ import ServicesStat from "@/components/ui/ServicesStat";
 import CategoryPage from "./categories/page";
 import AllReviewsPage from "./ProductReviews/page";
 import LatestProductsPage from "./LatestProduct/page";
+import PhysicalStorePage from "./physicalStore/page";
 
 const HomePage = () => {
   return (
@@ -18,6 +19,7 @@ const HomePage = () => {
       <LatestProductsPage/>
       <AllReviewsPage />
       {/* <Stat /> */}
+      <PhysicalStorePage/>
     </div>
   );
 };
